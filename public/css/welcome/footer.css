@@ -1,0 +1,26 @@
+/*                  FOOTBAR                    */
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    background-color: rgb(82, 82, 151);
+    margin: 0;
+    text-align: center;
+    z-index: 3;
+    color: rgb(211, 211, 211);
+}
+
+.footer-text {
+    line-height: 2.8em;
+    font-size: .9em;
+    margin: 0;
+}
+
+.home-footer footer {
+    width: 100%;
+    position: relative !important;
+    margin: 0;
+    text-align: center;
+    z-index: 3;
+    color: rgb(211, 211, 211);
+}

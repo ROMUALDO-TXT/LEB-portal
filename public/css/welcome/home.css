@@ -1,0 +1,32 @@
+/*                   HOME                     */
+
+.home {
+    position: relative; /* Necessário para o posicionamento absoluto interno */
+    background-image: url('../../images/fundo-LEB.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: end;
+}
+
+.home-gradient {
+    position: relative;
+    display: flex;
+    justify-content: end;
+    overflow: hidden;
+    object-fit: cover;
+    margin-left: 0;
+    height: 100%;
+    z-index: 1; /* Coloca o gradiente por baixo da logo */
+}
+
+.logo-LEB {
+    position: absolute;
+    top: 15%;
+    right: 5%; /* Ajuste a posição horizontal conforme necessário */
+    width: max-content;
+    height: 70vh;
+    z-index: 2; /* Coloca a logo sobre o gradiente */
+}

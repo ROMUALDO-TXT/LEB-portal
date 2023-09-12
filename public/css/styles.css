@@ -1,0 +1,329 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    max-width: 100%;
+    font-family: Inter;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+}
+
+.content-background{
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-image: url('../images/fundo-site.svg');
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: none;
+}
+.carousel-indicators {
+    list-style-type: none;
+}
+
+@media (max-width: 900px) {
+    .topbar-topics ul {
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+    }
+
+    .title {
+        margin: 0;
+        flex-basis: auto;
+        text-align: center;
+        max-width: 100px;
+    }
+
+    .topbar-login {
+        padding-right: 10%;
+    }
+
+    .home-back,
+    .home-gradient {
+        height: 80vh;
+    }
+
+    .logo-unifei {
+        top: 15vh;
+    }
+
+    .logo-neiru {
+        top: 60vh;
+    }
+
+    .fundo-site {
+        top: 70vh;
+    }
+
+    .sobre-nos {
+        top: 80vh;
+    }
+
+    .card-neiru,
+    .card-missao {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .card-missao img,
+    .card-neiru img {
+        width: 50%;
+        padding: 2% 25%;
+    }
+
+    .card-neiru {
+        flex-direction: column-reverse;
+    }
+
+    .missao-icon,
+    .neiru-icon {
+        display: flex;
+        justify-content: center;
+    }
+
+    .servicos-prestados {
+        top: 280vh;
+    }
+
+    .servicos-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .clientes {
+        top: 480vh;
+    }
+
+    .contato {
+        top: 540vh;
+    }
+
+    .card-contato {
+        flex-direction: column;
+    }
+
+    .contact-form {
+        width: 50vw;
+    }
+
+    .div-contato {
+        display: none;
+    }
+
+    .redes-sociais {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 5% 2%;
+    }
+
+    .footer {
+        top: 620vh;
+    }
+}
+
+@media (max-width:650px) {
+    .topbar ul {
+        padding: 0;
+    }
+
+    .topbar {
+        flex-direction: column;
+    }
+
+    .topbar,
+    .topbar-topics,
+    .topbar-login {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logo-unifei {
+        top: 20vh;
+    }
+} */
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    max-width: 100%;
+    font-family: Inter;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-background {
+    margin-top: -4%;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+}
+
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: none;
+}
+
+.carousel-indicators {
+    list-style-type: none;
+    /* Remove os marcadores */
+}
+
+footer {
+    display: block;
+}
+
+.bg-footer {
+    background-color: #000D2C;
+}
+
+.card-footer {
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.footer-title {
+    color: #fff;
+    font-size: 2em;
+}
+
+.footer-text {
+    color: #fff;
+}
+
+.hr-footer {
+    border-color: #fff;
+    border-left-width: 10px;
+}
+
+.neiru-logo-footer {
+    align-content: center;
+    padding: 4px 4px;
+}
+
+.img-logo-footer {
+    max-height: 170px;
+    width: 100%;
+}
+
+.copyright-footer {
+    line-height: 55px;
+    vertical-align: center;
+}
+
+.blockquote-footer {
+    display: block;
+    font-size: 80%;
+    color: #6c757d;
+}
+
+.blockquote-footer::before {
+    content: "\2014\A0";
+}
+
+.container {
+    width: 100% !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+footer a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.padding-15 {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* @media (min-width: 320px)  and (max-width: 479px) {
+    .content-background {
+        margin-top: -6%;
+    }
+
+    .container {
+        max-width: 540px;
+    }
+} */
+
+@media (max-width: 480px) {
+    body{
+        overflow-x: hidden;
+    }
+    .content-background {
+        margin-top: -6%;
+        background-size: 100%;
+
+    }
+
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .content-background {
+        margin-top: -6%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .content-background {
+        margin-top: -5%;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1024px) {
+
+    .content-background {
+        margin-top: -5%;
+    }
+
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1201px) {
+    .container {
+        max-width: 1140px !important;
+    }
+}

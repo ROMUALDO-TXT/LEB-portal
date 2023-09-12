@@ -1,0 +1,179 @@
+/*                  SOBRE NÓS                    */
+
+.sobre-nos {
+    padding: 10% 8% 0% 8%;
+}
+
+.card-missao {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.card-missao-text {
+    width: 80%;
+    font-family: Inter;
+}
+
+.missao-title {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: 500;
+    margin-bottom: 2%;
+}
+
+.missao-text {
+    font-size: 1.1em;
+    font-weight: 100;
+    text-align: justify;
+}
+
+.sobre-leb{
+    padding: 5% 8% 0% 8%;
+
+}
+
+.card-leb{
+    margin: auto;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+.card-leb-img{
+    width: 30%;
+}
+
+.card-leb-text {
+    width: 75%;
+    font-family: Inter;
+    margin-left: 5%;
+}
+
+.leb-title {
+    text-align: left;
+    font-size: 2.5em;
+    font-weight: 500;
+    margin-bottom: 2%;
+}
+
+.leb-text {
+    font-size: 1.1em;
+    font-weight: 100;
+    text-align: justify;
+}
+
+@media (max-width: 480px) {
+    .card-missao{
+        width: 100%;
+        align-items: center;
+        margin: auto
+    }
+
+    .card-missao-text {
+        width: 90%;
+        margin: auto;
+        font-family: Inter;
+    }
+    .missao-text{
+        font-size: 1em;
+    }
+    .missao-title{
+        font-size: 2.5em;
+    }
+
+    .card-leb{
+        width: 100%;
+    }
+
+    .card-leb-img{
+        display: none;
+    }
+
+    .card-leb-text {
+        width: 90%;
+        font-family: Inter;
+        margin-left: 0;
+    }
+    
+    .leb-title {
+        text-align: center;
+        font-size: 2.5em;
+        font-weight: 500;
+        margin-bottom: 2%;
+    }
+    
+    .leb-text {
+        font-size: 1.1em;
+        font-weight: 100;
+        text-align: justify;
+    }
+
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+    .card-missao{
+        width: 100%;
+        align-items: center;
+        margin: auto
+    }
+
+    .card-missao-text {
+        width: 90%;
+        margin: auto;
+        font-family: Inter;
+    }
+    .missao-text{
+        font-size: 1em;
+    }
+    .missao-title{
+        font-size: 2.5em;
+    }
+
+    .card-leb{
+        width: 100%;
+    }
+
+    .card-leb-img{
+        width: 30%;
+    }
+
+    .card-leb-text {
+        width: 55%;
+        font-family: Inter;
+        margin-left: 5%;
+    }
+    
+    .leb-title {
+        font-size: 2.5em;
+        font-weight: 500;
+        margin-bottom: 2%;
+    }
+    
+    .leb-text {
+        font-size: 1.1em;
+        font-weight: 100;
+        text-align: justify;
+    }
+
+
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+
+}
+
+@media (min-width: 993px) and (max-width: 1024px) {
+
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+
+}
+
+@media (min-width: 1201px) {
+
+}

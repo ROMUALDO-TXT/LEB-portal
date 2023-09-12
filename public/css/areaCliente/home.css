@@ -1,0 +1,28 @@
+/*                   HOME                     */
+.home {
+    position: relative; /* Necessário para o posicionamento absoluto interno */
+    background-image: url('../../images/fundo-LEB.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: end;
+    height: 100vh;
+
+}
+
+.filter-home{
+    display: flex;
+    position: relative;
+    width: 100vw;
+    height: 96vh;
+    background-color: rgba(0, 0, 0, 0.575);
+    flex-direction: column;
+}
+
+.content{
+    max-width: 100%;
+    overflow-x: hidden;
+}

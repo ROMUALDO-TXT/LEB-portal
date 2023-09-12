@@ -4,15 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use app\Notifications\ResetPassword;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -35,44 +36,42 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function permissions()
-    {
-        $role = Role::where("name", $this->role)->first();
-        if (isset($role)) {
-            return $role->permissions;
-        }
-        return collect([]);
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    protected $rules = [
+        'name' => ['required', 'string'],
+        'cnpj' => ['required', 'string'],
+        'role' => ['required', 'string'],
+        'password' => ['required', 'string'],
+    ];
+
+    public function getRules(){
+        return $this->rules;
     }
 
-    public function hasPermission($permission)
+    public static function isValidRole($role)
     {
-        if ($this->role == "admin") {
-            return true;
-        }
-        $permission = $this->permissions()->where("name", $permission)->first();
-        return isset($permission);
+        return in_array($role, [
+            'Admin',
+            'Cliente',
+        ]);
     }
 
-    public function canAccess($permission, $action)
+    public function folders()
     {
-        if ($this->role == "admin") {
-            return true;
-        }
-
-        $permissions = $this->permissions();
-        $permissionFilter = $permissions->filter(function ($p) use ($permission) {
-            return $p->name == $permission;
-        })->first();
-
-        if (isset($permissionFilter) && isset($permissionFilter->features)) {
-            $features = $permissionFilter->features;
-            return array_search($action, $features) !== false || array_search('*', $features) !== false;
-        }
-        return false;
+        return $this->hasMany(Folder::class);
     }
 
-    public function sendPasswordResetNotification($token)
+    public function files()
     {
-        $this->notify(new ResetPassword($token));
+        return $this->hasMany(File::class);
     }
+    
 }

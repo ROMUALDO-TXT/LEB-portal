@@ -1,73 +1,150 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<head>
+    <meta charset="utf-8">
+    <title>LEB - Laboratório de Etiquetagem de Bombas</title>
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="stylesheet" href="{{ asset('css/welcome/topbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/welcome/footer.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/auth/login.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+<body>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+    <main class="content">
+        <header>
+            <nav class="navbar navbar-expand-lg topbar">
+                <a class="title navbar-brand m-lg-auto" href="{{ route('home') }}">
+                    <h3>LEB</h3>
+                </a>
+                <ul class="nav navbar-nav d-none d-lg-flex topbar-topics">
+                    <li class="nav-item title">
+                        <h3></h3>
+                    </li>
+                </ul>
+                @guest
+                <a class="topbar-login nav-link navbar-text" href="{{ route('redirect') }}">{{ __('Login') }}</a></li>
+                @else
+                <div class="dropdown">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <a id="navbarDropdown" class="nav-link topbar-login navbar-text dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu title">
+                        @if(Auth::user()->role === 'Cliente')
+                        <a class="dropdown-item" href="{{ route('workspace') }}">
 
-                                @error('email')
+                            {{ __('Documentos') }}
+                            <i class="fa fa-document" aria-hidden="true"></i>
+                        </a>
+                        @elseif(Auth::user()->role === 'Admin')
+                        <a class="dropdown-item" href="{{ route('workspace') }}">
+
+                            {{ __('Dashboard') }}
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </a>
+                        @endif
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                            {{ __('Sair') }}
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+
+                </div>
+                @endguest
+            </nav>
+        </header>
+
+        <div class="home" id="home">
+            <div class="filter-home">
+                <div class="login-area">
+                    <div class="card">
+                        <!-- <div class="card-header"><h4>{{ __('Login') }}</h4></div> -->
+                        <div class="card-body">
+                            <form class="login-form" method="POST" action="{{ route('login') }}">
+                                @csrf
+
+                                <div class="row mb-3">
+                                    <label for="cnpj" class="col-form-label">{{ __('CNPJ') }}</label>
+
+                                    <input id="cnpj" type="text" onchange="mask()" class="form-control @error('cnpj') is-invalid @enderror" name="cnpj" value="{{ old('cnpj') }}" required autocomplete="cnpj" autofocus>
+
+                                    @error('cnpj')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                                    @enderror
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                                <div class="row mb-3">
+                                    <label for="password" class="col-form-label">{{ __('Senha') }}</label>
 
+
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                        <label class="form-check-label" for="remember">
+                                            {{ __('Lembre de mim') }}
+                                        </label>
+                                    </div>
+                                </div>
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                <!-- <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Esqueci minha senha') }}
+                                    </a> -->
                                 @endif
-                            </div>
+
+                                <div class="row mt-3">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Login') }}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+        <div class="home-footer">
+            @include('layouts.footer')
+        </div>
+    </main>
+    <script>
+        function mask() {
+            input = document.getElementById('cnpj');
+            var x = input.value;
+            x = x.replace(/\D/g, "") //Remove tudo o que não é dígito
+            x = x.slice(0, 14)
+            x = x.replace(/^(\d{2})(\d)/, "$1.$2") //Coloca ponto entre o segundo e o terceiro dígitos
+            x = x.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3") //Coloca ponto entre o quinto e o sexto dígitos
+            x = x.replace(/\.(\d{3})(\d)/, ".$1/$2") //Coloca uma barra entre o oitavo e o nono dígitos
+            x = x.replace(/(\d{4})(\d)/, "$1-$2");
+            console.log(x);
+            input.value = x;
+            console.log(input.value);
+        }
+    </script>
+</body>
+
+</html>

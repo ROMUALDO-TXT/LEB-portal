@@ -1,0 +1,119 @@
+.home {
+    position: relative; /* Necessário para o posicionamento absoluto interno */
+    background-image: url('../../images/fundo-LEB.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: end;
+    height: 93vh;
+
+}
+
+.filter-home{
+    display: flex;
+    position: relative;
+    width: 101vw;
+    height: 93vh;
+    background-color: rgba(0, 0, 0, 0.575);
+    flex-direction: column;
+}
+
+.content{
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.login-area{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    width: 40%;
+    border-radius: 20px !important;
+}
+
+.topbar-topics{
+    width: 60vw;
+    align-items: baseline;
+}
+.navbar-brand {
+    width: 20vw;
+}
+
+.topbar-login{
+    width: 20vw;
+}
+
+.card-header{
+    font-size: 1em;
+    font-weight: 100 !important;
+    text-align: center;
+    border-radius: 20px 20px 0px 0px !important;
+    background-color: #b1b1b1a9 !important;
+}
+
+.card-body{
+
+    border-radius: 20px 20px;
+    padding: 5% 8% 5% 8% !important;
+    background-color: #b1b1b1a9;
+}
+.card-body input{
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.login-form button{
+    width: 30%;
+    margin: auto;
+}
+
+@media (max-width: 480px) {
+    .card{
+        width: 70%;
+    }
+    .login-form{
+        margin: auto;
+        width: 90%;
+    }
+    .login-form button{
+        width: 40%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .card{
+        width: 60%;
+    }
+    .login-form{
+        margin: auto;
+        width: 90%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .card{
+        width: 50%;
+    }
+    
+}
+
+@media (min-width: 993px) and (max-width: 1024px) {
+    .login-form{
+        width: 70%;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .login-form{
+        width: 70%;
+    }
+}
+
+@media (min-width: 1201px) {}

@@ -21,8 +21,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function redirect(Request $request)
     {
-        return view('home');
+        if($request->user()->role === 'Cliente'){
+            return redirect()->route('workspace');
+        }
+
+        if ($request->user()->role === 'Admin') {
+            return redirect()->route('dashboard');
+        }
     }
 }
