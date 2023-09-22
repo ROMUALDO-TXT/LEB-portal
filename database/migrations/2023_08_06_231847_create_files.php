@@ -22,6 +22,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('folder_id');
+            $table->unsignedBigInteger('updated_by');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('folder_id')->references('id')->on('folders');
         });

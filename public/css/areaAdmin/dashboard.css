@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+}
+
+body{
+    overflow-y: hidden;
+    overflow-y: hidden;
+}
+
+.content{
+    overflow-y: hidden;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.back-home {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    z-index: 3;
+    left: 10%;
+    top: 10%;
+    width: max-content;
+}
+
+.back-home a {
+    text-decoration: none;
+}
+
+.back-home i {
+    display: flex;
+    font-size: 20px;
+    color: rgb(230, 230, 230);
+    align-items: center;
+    margin-left: 5%;
+    text-decoration: none;
+    width: max-content;
+}
+
+.back-home h3 {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    margin: 0;
+    color: rgb(230, 230, 230);
+    margin-left: 20%;
+    font-family: Inter;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
+.modal {
+    color: white;
+}
+
+.modal-open .modal {
+    overflow-y: hidden;
+}
+
+.modal-content {
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 20px;
+    box-shadow: 4px 4px 6px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(19, 100, 181, 1) 0%, rgba(56, 131, 196, 1) 12%, rgba(189, 241, 251, 1) 100%);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.modal li {
+    margin-bottom: 1%;
+    font: 15px;
+}

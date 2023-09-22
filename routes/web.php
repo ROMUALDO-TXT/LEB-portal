@@ -19,18 +19,20 @@ Route::get('/', function () {
 
 Route::get('/redirect',  [\App\Http\Controllers\HomeController::class, 'redirect'])->name('redirect');
 
-Route::post('/contact/send', [\App\Http\Controllers\ContactController::class,'sendMessage'])->name('send-email');
+Route::post('/contact/send', [\App\Http\Controllers\ContactController::class, 'sendMessage'])->name('send-email');
 
 Auth::routes();
 Auth::routes(['register' => false]); // Desativa a rota padrão de registro
 
-Route::group(['middleware' => 'isCliente'], function(){
+Route::group(['middleware' => 'isCliente'], function () {
     Route::get('/users/workspace', [\App\Http\Controllers\UserController::class, 'workspace'])->name('workspace');
     Route::get('/users/workspace/files', [\App\Http\Controllers\UserController::class, 'getFolderFiles'])->name('workspace.files');
 });
 
-Route::group(['middleware' => 'isAdmin'], function(){
-    Route::get('/admin/dashboard', [\App\Http\Controllers\UserController::class, 'workspace'])->name('dashboard');
+Route::group(['middleware' => 'isAdmin'], function () {
+    Route::get('/admin/dashboard', [\App\Http\Controllers\UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/users/dashboard/files', [\App\Http\Controllers\UserController::class, 'getClienteFolderFiles'])->name('dashboard.files');
+    Route::get('/users/dashboard/activities', [\App\Http\Controllers\UserController::class, 'getAdminActivities'])->name('dashboard.activities');
 
     Route::get('/users/list', [\App\Http\Controllers\UserController::class, 'list'])->name('user-list');
     Route::get('/users/new',  [\App\Http\Controllers\UserController::class, 'new'])->name('user-add');
@@ -39,7 +41,7 @@ Route::group(['middleware' => 'isAdmin'], function(){
     //Files
 
     Route::get('/files/list', [\App\Http\Controllers\FileController::class, 'list'])->name('list-files');
-    Route::get('/files/new',  [\App\Http\Controllers\FileController::class, 'new'])->name('add-file');
+    Route::get('/files/save',  [\App\Http\Controllers\FileController::class, 'new'])->name('files.save');
     Route::get('/files/remove/{id}',  [\App\Http\Controllers\FileController::class, 'delete'])->name('remove-file');
 
     //Folder

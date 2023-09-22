@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+}
+
+
+.area-admin {
+    width: 92%;
+    max-height: 95%;
+    min-height: 88%;
+    margin: 5% auto 2% 3.5%;
+    z-index: 3;
+    background-color: #b1b1b1ed;
+    border-radius: 20px;
+}
+
+.admin-data{
+    display: grid;
+    align-items: end;
+    grid-template-columns: 3fr 2fr 1fr;
+    padding: 2% 2% 1% 2%;
+    justify-content: space-between;
+}
+
+.btn-editar-cliente{
+    width: fit-content;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.activitiesTable th {
+    background-color: rgb(0, 25, 84) !important;
+    color: rgb(230, 230, 230) !important;
+}
+
+.activities{
+    padding: 2% 2% 1% 2%;
+    width: 100%;
+}
+
+.action-red{
+    color: rgb(181, 20, 20);
+}
+
+.action-green{
+    color: rgb(6, 147, 6);
+}
+
+.activities h3{
+    margin: 0;
+    color: Black;
+}
+
+@media (min-width: 320px) {
+    .folders-url{
+        margin-right: 2%!important;
+    }
+}
+
+@media (min-width: 375px) {
+    .folders-url{
+        margin-right: 7%!important;
+    }
+}
+@media (max-width: 480px) {
+    .pastas-select{
+        background-color: rgba(255, 255, 255, 0.6) !important;
+        border-radius: 5px !important;
+        border: 1px solid black !important;
+        color: var(--bs-heading-color)!important;
+        font-weight: 600 !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25em !important;
+    }
+
+    .folders-url{
+        padding: 6px 12px !important;
+        color: var(--bs-heading-color)!important;
+        font-weight: 600 !important;
+        font-size: 1.25em !important;
+        margin-bottom: 0;
+        width: 65%;
+        margin-right: 10% !important;
+    }
+    .area-cliente{
+        width: 99%;
+        max-height: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .div1{
+        display: none;
+    }
+    .footer-text{
+        line-height: 1.8em !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .area-cliente{
+        width: 90%;
+        margin: auto;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .folders-projects{
+        height: 90%;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1024px) {}
+
+@media (min-width: 1025px) and (max-width: 1200px) {}
+
+@media (min-width: 1201px) {}

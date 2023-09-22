@@ -1,0 +1,19 @@
+/*                  FOOTBAR                    */
+footer {
+    position: absolute;
+    bottom: 0;
+    max-width: 100%;
+    background-color: rgb(82, 82, 151);
+    margin: 0;
+    text-align: center;
+    z-index: 5;
+    color: rgb(211, 211, 211);
+    overflow-x: hidden;
+}
+
+.footer-text {
+    line-height: 2.8em;
+    font-size: .9em;
+    margin: 0;
+}
+

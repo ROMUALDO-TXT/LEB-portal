@@ -2,14 +2,29 @@
 
 .home {
     position: relative; /* Necessário para o posicionamento absoluto interno */
-    background-image: url('../../images/fundo-LEB.jpg');
+    background-image: url('../../images/LEB.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0;
     height: 100vh;
     display: flex;
     justify-content: end;
+    z-index: 1;    
 }
+
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(270deg, rgba(99, 186, 204, 0.246) 0%, rgba(44,179,238,0.6) 50%, rgba(0,0,0,1) 100%);
+    /* Gradiente azul */
+    opacity: 1; /* Ajuste a opacidade conforme necessário */
+    pointer-events: none; /* Evita interação com o pseudo-elemento */
+}
+
 
 .home-gradient {
     position: relative;
@@ -19,7 +34,7 @@
     object-fit: cover;
     margin-left: 0;
     height: 100%;
-    z-index: 1; /* Coloca o gradiente por baixo da logo */
+    z-index: 2; /* Coloca o gradiente por baixo da logo */
 }
 
 .logo-LEB {
@@ -28,5 +43,23 @@
     right: 5%; /* Ajuste a posição horizontal conforme necessário */
     width: max-content;
     height: 70vh;
-    z-index: 2; /* Coloca a logo sobre o gradiente */
+    z-index: 3; /* Coloca a logo sobre o gradiente */
 }
+
+.modal-imagens{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 2% 0;
+}
+
+.modal-body{
+    padding: 5%;
+    font-size: 1em;
+}
+
+.modal-servico-titulo{
+    text-align: center;
+    /* margin-bottom: 5%; */
+}
+

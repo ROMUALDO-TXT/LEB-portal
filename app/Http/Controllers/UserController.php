@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Folder;
+use App\Models\File;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -51,7 +52,10 @@ class UserController extends Controller
         if ($request->ajax()) {
             $userId = auth()->user()->id;
             $user = User::find($userId);
+
+
             $folderId = $request->query('folder');
+
             $folder = $user->folders()->where('id', $folderId)->first();
             $files = $folder->files()->get();
 
@@ -101,6 +105,230 @@ class UserController extends Controller
         }
     }
 
+
+
+    public function dashboard(Request $request)
+    {
+        $error = '';
+        $admin = null;
+        $cliente = null;
+        $adminId = null;
+        $clienteId = null;
+        $folder = null;
+        $parentFolder = null;
+        $childFolders = null;
+        $parentUrl = null;
+
+        try {
+            $clientes = User::select("id", "name", "cnpj", "role")->where('role', "=", "Cliente")->where('deleted_at', '=', null)->get();
+            $admins = User::select("id", "name", "cnpj", "role")->where('role', "=", "Admin")->where('deleted_at', '=', null)->get();
+            $clienteId = $request->query('cliente');
+            if (!empty($clienteId) && !is_null($clienteId)) {
+                $cliente = User::select("id", "name", "cnpj", "role")->where('id', "=", $clienteId)->first();
+                if (!is_null($cliente)) {
+                    $folderId = $request->query('folder');
+                    if (!empty($folderId) && !is_null($folderId)) {
+                        $folder = $cliente->folders()->where('id', $folderId)->first();
+                        if (empty($folder) && is_null($folder)) {
+                            $error = "Diretório não encontrado!";
+                            $folder = $cliente->folders()->where('name', 'main')->first();
+                        }
+                    } else {
+                        $folder = $cliente->folders()->where('name', 'main')->first();
+                    }
+
+                    $childFolders = $folder->childFolders()->get();
+                    $parentFolder = $folder->parentFolder()->first();
+
+                    if (isset($parentFolder->id) && !is_null($parentFolder->id)) {
+                        $parentUrl = route('dashboard', ['folder' => $parentFolder->id]);
+                    } else {
+                        $parentUrl = "#";
+                    }
+                } else {
+                    $error = "Cliente não encontrado!";
+                    return view('admin/dashboard')->with('clienteId', $clienteId)->with('adminId', $adminId)->with('clientes', $clientes)->with('admins', $admins)->with('cliente', $cliente)->with('admin', $admin)
+                        ->with('folder', $folder)->with('parentFolder', $parentFolder)->with('childFolders', $childFolders)->with('parentUrl', $parentUrl)->with('error', $error);
+                }
+            }
+            $adminId = $request->query('admin');
+            if (!empty($adminId) && !is_null($adminId)) {
+                $admin = User::select("id", "name", "cnpj", "role")->where('id', "=", $adminId)->where('deleted_at', '=', null)->first();
+                if (is_null($admin)) {
+                    $error = "Administrador não encontrado!";
+                    return view('admin/dashboard')->with('clienteId', $clienteId)->with('adminId', $adminId)->with('clientes', $clientes)->with('admins', $admins)->with('cliente', $cliente)->with('admin', $admin)
+                        ->with('folder', $folder)->with('parentFolder', $parentFolder)->with('childFolders', $childFolders)->with('parentUrl', $parentUrl)->with('error', $error);
+                }
+            }
+
+
+            return view('admin/dashboard')->with('clienteId', $clienteId)->with('adminId', $adminId)->with('clientes', $clientes)->with('admins', $admins)->with('cliente', $cliente)->with('admin', $admin)
+                ->with('folder', $folder)->with('parentFolder', $parentFolder)->with('childFolders', $childFolders)->with('parentUrl', $parentUrl)->with('error', $error);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getClienteFolderFiles(Request $request)
+    {
+        if ($request->ajax()) {
+            $clienteId = $request->query('cliente');
+            if (!empty($clienteId) && !is_null($clienteId)) {
+                $user = User::find($clienteId);
+
+                $folderId = $request->query('folder');
+
+                $folder = $user->folders()->where('id', $folderId)->first();
+                $files = $folder->files()->get();
+
+
+                $fileTypeToIcon = [
+                    "pdf" => "fas fa-file-pdf",
+                    "doc" => "fas fa-file-word",
+                    "docx" => "fas fa-file-word",
+                    "jpg" => "fas fa-file-image",
+                    "png" => "fas fa-file-image",
+                    "jpg" => "fas fa-file-image",
+                    "jpeg" => "fas fa-file-image",
+                    "csv" => "fas fa-file-csv",
+                    "xls" => "fas fa-file-excel",
+                    "xlsx" => "fas fa-file-excel",
+                ];
+
+                return Datatables::of($files)
+                    ->addIndexColumn()
+                    ->addColumn('date', function ($row) {
+                        $timestamp = strtotime($row->updated_at);
+                        $dataFormatada = date("d/m/Y", $timestamp);
+                        return $dataFormatada;
+                    })
+                    ->addColumn('extension', function ($row) use ($fileTypeToIcon) {
+                        $file = explode('.', $row->path);
+                        $fileType = end($file);
+                        $iconClass = $fileTypeToIcon[$fileType] ?? "fas fa-file";
+                        $extension = '<p><span style="color: #203c7f;" class="' . $iconClass . '" title="' . $fileType . '"></span>  ' . $fileType . '</p>';
+
+
+                        return $extension;
+                    })
+                    ->addColumn('action', function ($row) {
+                        $actionBtn = '
+
+                    <button onclick="previewDocument(`' . $row->path . '`)" title="Visualizar documento" class="actions btn btn-success btn-sm">
+                        <span class="fa fa-eye preview-eye"></span>
+                    </button> 
+                    <button onclick="edit" title="Editar documento" class="actions btn btn-secondary btn-sm">
+                        <span class="fa fa-regular fa-pen"></span>
+                    </button> 
+                    <button onclick="delete" title="Deletar documento" class="actions btn btn-danger btn-sm">
+                        <span class="fa fa-times "></span>
+                    </button>                     <a class="actions btn btn-primary btn-sm " href="' . asset("uploads/" . $row->path) . '" target="_blank" title="Download do documento" download>
+                    <span style="color: white" class="fa fa-arrow-down"></span>
+                    </a>';
+
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['extension', 'action'])
+                    ->make(true);
+            }
+        }
+    }
+
+    public function getAdminActivities(Request $request)
+    {
+        if ($request->ajax()) {
+            $adminId = $request->query('admin');
+            if (!empty($adminId) && !is_null($adminId)) {
+                $admin = User::find($adminId);
+
+                $files = File::select('files.name as name', 'users.name as cliente', 'files.updated_at as date', 'files.deleted_at as deleted_at')
+                ->join('users', 'files.user_id', '=', 'users.id')
+                ->where('files.updated_by', '=', $admin->id)->get();
+
+                $clientes = User::select('name', 'updated_at as date', 'deleted_at')
+                ->where('updated_by', '=', $admin->id)->get();
+                
+                $activities = [];
+
+                foreach ($files as $file) {
+                    array_push($activities, [
+                        'cliente' => $file->cliente,
+                        'file' => $file->name,
+                        'date' => date("d/m/Y", strtotime($file->date)),
+                        'action' => is_null($file->deleted_at) ? 'Atualização' : 'Remoção',
+                    ]);
+                }
+
+                foreach($clientes as $cliente){
+                    array_push($activities, [
+                        'cliente' => $cliente->name,
+                        'file' => 'Perfil',
+                        'date' => date("d/m/Y", strtotime($cliente->date)),
+                        'action' => is_null($cliente->deleted_at) ? 'Atualização' : 'Remoção',
+                    ]);
+                }
+
+                return Datatables::of($activities)
+                    ->addIndexColumn()
+                    ->addColumn('action', function ($row) {
+                        $action = '';
+                        if($row['action'] == 'Atualização'){
+                            $action = '<h6 class="action-green title="O arquivo ou usuário foi inserido ou editado"">'.$row['action'].'</h6>';
+                        }else{
+                            $action = '<h6 class="action-red" title="O arquivo ou usuário foi removido">'.$row['action'].'</h6>';
+
+                        }
+                        return $action;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+        }
+    }
+
+    function getUsers(Request $request)
+    {
+        if ($request->ajax()) {
+            $userId = auth()->user()->id;
+            $user = User::find($userId);
+            $roleId = $request->query('role');
+            if (!empty($roleId) && !is_null($roleId)) {
+                $folder = $user->folders()->where('id', $roleId)->first();
+                $files = $folder->files()->get();
+
+                return Datatables::of($files)
+                    ->addIndexColumn()
+                    ->addColumn('date', function ($row) {
+                        $timestamp = strtotime($row->updated_at);
+                        $dataFormatada = date("d/m/Y", $timestamp);
+                        return $dataFormatada;
+                    })
+                    // ->addColumn('extension', function ($row) use ($fileTypeToIcon) {
+                    //     $file = explode('.', $row->path);
+                    //     $fileType = end($file);
+                    //     $iconClass = $fileTypeToIcon[$fileType] ?? "fas fa-file";
+                    //     $extension = '<p><span style="color: #203c7f;" class="' . $iconClass . '" title="' . $fileType . '"></span>  ' . $fileType . '</p>';
+
+
+                    //     return $extension;
+                    // })
+                    ->addColumn('action', function ($row) {
+                        $actionBtn = '
+                <button onclick="previewDocument(`' . $row->path . '`)" title="Visualizar documento" class="actions btn btn-success btn-sm">
+                    <span class="fa fa-eye preview-eye"></span>
+                </button> 
+                <a class="actions btn btn-primary btn-sm " href="' . asset("uploads/" . $row->path) . '" target="_blank" title="Download do documento" download>
+                <span style="color: white" class="fa fa-arrow-down"></span>
+                </a>';
+
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['extension', 'action'])
+                    ->make(true);
+            }
+        }
+    }
+
     public function userData(Request $request)
     {
 
@@ -124,13 +352,6 @@ class UserController extends Controller
         }
     }
 
-    public function list()
-    {
-        $users = User::all();
-        echo 'users';
-        dump($users);
-        //return view('private/user/list-user')->with('users', $users);
-    }
 
     public function new()
     {

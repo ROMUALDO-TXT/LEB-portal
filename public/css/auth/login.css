@@ -1,22 +1,33 @@
 .home {
     position: relative; /* Necessário para o posicionamento absoluto interno */
-    background-image: url('../../images/fundo-LEB.jpg');
+    background-image: url('../../images/LEB.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0;
-    width: 100vw;
-    overflow: hidden;
     display: flex;
     justify-content: end;
-    height: 93vh;
+    overflow-y: hidden;
+    z-index: 1;    
+}
 
+.home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(270deg, rgba(99, 186, 204, 0.246) 0%, rgba(44,179,238,0.6) 50%, rgba(0,0,0,1) 100%);
+    /* Gradiente azul */
+    opacity: 1; /* Ajuste a opacidade conforme necessário */
+    pointer-events: none; /* Evita interação com o pseudo-elemento */
 }
 
 .filter-home{
     display: flex;
     position: relative;
     width: 101vw;
-    height: 93vh;
+    height: 92.5vh;
     background-color: rgba(0, 0, 0, 0.575);
     flex-direction: column;
 }
@@ -27,6 +38,7 @@
 }
 
 .login-area{
+    margin-top: 5%;
     width: 100%;
     height: 100%;
     display: flex;
@@ -37,6 +49,7 @@
 .card{
     width: 40%;
     border-radius: 20px !important;
+    box-shadow: 2px 2px 2px 1px rgb(155 133 133 / 50%);
 }
 
 .topbar-topics{
@@ -63,8 +76,7 @@
 
     border-radius: 20px 20px;
     padding: 5% 8% 5% 8% !important;
-    background-color: #b1b1b1a9;
-}
+        background: linear-gradient(135deg, rgba(177,177,177,0.7240260361957283) 0%, rgba(126, 126, 126, 0.834) 100%);}
 .card-body input{
     background-color: rgba(255, 255, 255, 0.6);
 }
@@ -85,6 +97,11 @@
     .login-form button{
         width: 40%;
     }
+
+    .filter-home{
+        height: 84vh;
+
+    }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -94,6 +111,10 @@
     .login-form{
         margin: auto;
         width: 90%;
+    }
+    .filter-home{
+        height: 91.3vh;
+
     }
 }
 

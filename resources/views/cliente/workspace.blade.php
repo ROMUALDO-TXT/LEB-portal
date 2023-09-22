@@ -14,8 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/areaCliente/files.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/areaCliente/topbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/areaCliente/home.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/welcome/footer.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/areaCliente/footer.css') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
@@ -26,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
 </head>
 
-<body style="max-height: 100vh">
+<body>
     <div class="modal fade" id="modalDocs" tabindex="-1" aria-labelledby="modalDocsLabel" aria-hidden="true" style='overflow-y: hidden;'>
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -42,48 +41,80 @@
     </div>
 
 
-    <main class="content">
-        <header>
-            <nav class="navbar navbar-expand-lg topbar">
-                <a class="title navbar-brand m-lg-auto" href="{{ route('home') }}">
-                    <h3>LEB</h3>
+    <header>
+        <nav class="navbar navbar-expand-lg topbar">
+            <a class="title navbar-brand m-lg-auto" href="{{ route('home') }}">
+                <h3>LEB</h3>
+            </a>
+            <ul class="nav navbar-nav topbar-topics">
+                <li class="nav-item title">
+                    <h3>Lista de Documentos</h3>
+                </li>
+            </ul>
+            <div class="dropdown">
+                <a id="navbarDropdown" class="nav-link topbar-login navbar-text dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ strtok(Auth::user()->name, " ") }}
                 </a>
-                <ul class="nav navbar-nav topbar-topics">
-                    <li class="nav-item title">
-                        <h3>Lista de Documentos</h3>
-                    </li>
-                </ul>
-                <div class="dropdown">
-                    <a id="navbarDropdown" class="nav-link topbar-login navbar-text dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ strtok(Auth::user()->name, " ") }}
+
+                <div class="dropdown-menu header-menu title" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('home') }}">
+                        {{ __('Home') }}
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </a>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Sair') }}
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
                     </a>
 
-                    <div class="dropdown-menu header-menu title" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('home') }}">
-                            {{ __('Home') }}
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                        </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Sair') }}
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>
 
-        <div class="home" id="home">
-            <div class="filter-home">
-                <div class="area-cliente">
-                    <div class="folders-projects">
-                        <div class="folders-projects-container d-none d-md-block">
-                            <h3>Pastas</h3>
-                            <h5 class="folders-url">
+    <div class="home" id="home">
+    </div>
+
+    <div class="content">
+        <div class="filter-home">
+            <div class="area-cliente">
+                <div class="folders-projects">
+                    <div class="folders-projects-container d-none d-md-block">
+                        <h3>Pastas</h3>
+                        <h5 class="folders-url">
+                            @if($parentUrl !== "#")
+                            <a href="{{$parentUrl}}">
+                                <i class="fa fa-chevron-circle-left retorno" aria-hidden="true" alt="Retornar a pasta anterior"></i>
+                            </a>
+                            <a href="{{$parentUrl}}" style="margin-left: 2%">
+                                /{{$parentFolder->name}}
+                            </a>
+                            @endif
+                            /{{$folder->name}}
+                        </h5>
+                        <ul class="projects">
+                            @if(isset($childFolders) && count($childFolders) > 0)
+                            @foreach($childFolders as $c)
+                            <li class="folder" id="folder-{{$c->id}}">
+                                <i class="fa fa-folder" id="folder-icon"></i>
+                                <h5>
+                                    <a href="{{route('workspace', ['folder' => $c->id]);}}">
+                                        {{$c->name}}
+                                    </a>
+                                </h5>
+                            </li>
+                            @endforeach
+                            @endif
+                        </ul>
+                    </div>
+
+                    <div class="folders-projects-container d-md-none">
+                        <h3>Documentos</h3>
+                        <div class="d-flex">
+                            <p class="folders-url">
                                 @if($parentUrl !== "#")
                                 <a href="{{$parentUrl}}">
                                     <i class="fa fa-chevron-circle-left retorno" aria-hidden="true" alt="Retornar a pasta anterior"></i>
@@ -93,74 +124,44 @@
                                 </a>
                                 @endif
                                 /{{$folder->name}}
-                            </h5>
-                            <ul class="projects">
-                                @if(isset($childFolders) && count($childFolders) > 0)
-                                @foreach($childFolders as $c)
-                                <li class="folder" id="folder-{{$c->id}}">
-                                    <i class="fa fa-folder" id="folder-icon"></i>
-                                    <h5>
-                                        <a href="{{route('workspace', ['folder' => $c->id]);}}">
-                                            {{$c->name}}
-                                        </a>
-                                    </h5>
-                                </li>
-                                @endforeach
-                                @endif
-                            </ul>
-                        </div>
-
-                        <div class="folders-projects-container d-md-none">
-                            <h3>Documentos</h3>
-                            <div class="d-flex">
-                                <p class="folders-url">
-                                    @if($parentUrl !== "#")
-                                    <a href="{{$parentUrl}}">
-                                        <i class="fa fa-chevron-circle-left retorno" aria-hidden="true" alt="Retornar a pasta anterior"></i>
-                                    </a>
-                                    <a href="{{$parentUrl}}" style="margin-left: 2%">
-                                        /{{$parentFolder->name}}
-                                    </a>
+                            </p>
+                            <div class="dropdown pastas-list">
+                                <button class="btn btn-primary dropdown-toggle pastas-select" type="button" id="folderDropdown" data-bs-toggle="dropdown" aria-expanded="false" <?php echo (isset($childFolders) && count($childFolders) > 0) ? 'title="Sub-pastas"' : 'disabled title="Não há sub-pastas"'; ?>>
+                                    Pastas
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="folderDropdown">
+                                    @if(isset($childFolders) && count($childFolders) > 0)
+                                    @foreach($childFolders as $c)
+                                    <li><a class="dropdown-item" href="{{route('workspace', ['folder' => $c->id])}}">{{$c->name}}</a></li>
+                                    @endforeach
                                     @endif
-                                    /{{$folder->name}}
-                                </p>
-                                <div class="dropdown pastas-list">
-                                    <button class="btn btn-primary dropdown-toggle pastas-select" type="button" id="folderDropdown" data-bs-toggle="dropdown" aria-expanded="false" <?php echo (isset($childFolders) && count($childFolders) > 0) ? 'title="Sub-pastas"' : 'disabled title="Não há sub-pastas"'; ?>>
-                                        Pastas
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="folderDropdown" >
-                                        @if(isset($childFolders) && count($childFolders) > 0)
-                                        @foreach($childFolders as $c)
-                                        <li><a class="dropdown-item" href="{{route('workspace', ['folder' => $c->id])}}">{{$c->name}}</a></li>
-                                        @endforeach
-                                        @endif
-                                    </ul>
-                                </div>
+                                </ul>
                             </div>
                         </div>
-                        <div class="div1"></div>
                     </div>
-                    <div class="files-projects">
-                        <h3 class="d-none d-md-block">Documentos</h3>
-                        <table class="table table-striped nowrap responsive hover filesTable">
-                            <thead>
-                                <tr>
-                                    <th class="all">Nome</th>
-                                    <th class="min-tablet-p">Comentários</th>
-                                    <th class="min-tablet-p">Data</th>
-                                    <th class="min-tablet-p">Tipo</th>
-                                    <th class="all">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="div1"></div>
+                </div>
+                <div class="files-projects">
+                    <h3 class="d-none d-md-block">Documentos</h3>
+                    <table class="table table-striped nowrap responsive hover filesTable">
+                        <thead>
+                            <tr>
+                                <th class="all">Nome</th>
+                                <th class="min-tablet-p">Comentários</th>
+                                <th class="min-tablet-p">Data</th>
+                                <th class="min-tablet-p">Tipo</th>
+                                <th class="all">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        @include('layouts.footer')
-    </main>
+    </div>
+    @include('layouts.footer')
+
 
     <script src="{{ asset('js/script.js') }}"></script>
     <!-- Script JavaScript para manipular o Modal -->
@@ -203,7 +204,7 @@
                         }
                     },
                     columns: [{
-                            width: window.innerWidth < 768 ? '70%':'30%',
+                            width: window.innerWidth < 768 ? '70%' : '30%',
                             data: 'name',
                             name: 'nome'
                         },
@@ -238,7 +239,7 @@
             adjustTableProperties();
 
             // Adjust when the window is resized
-            $(window).on('resize',() =>{ 
+            $(window).on('resize', () => {
                 adjustTableProperties()
                 window.location.reload();
             });

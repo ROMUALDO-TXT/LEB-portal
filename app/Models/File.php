@@ -23,6 +23,7 @@ class File extends Model
         'name',
         'path',
         'description',
+        'updated_by',
     ];
 
     public $rules = [

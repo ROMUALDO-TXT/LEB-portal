@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('cnpj')->unique();
             $table->string('role');
             $table->string('password');
+            $table->unsignedBigInteger('updated_by');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -1,47 +1,9 @@
 <?php
-
-$servicos = [
-    [
-        'titulo' => 'Ensaio de Eficiência e desempenho em bombas centrifugas',
-        'descricao' => 'Somos um laboratório especializado em ensaios de eficiência 
-        energética e desempenho em bombas hidráulicas...',
-    ],
-    [
-        'titulo' => 'Elaboração de Curvas para Catálogo de Motobombas Hidráulicas',
-        'descricao' => 'Oferecemos um serviço especializado na elaboração de curvas
-        de desempenho para catálogos técnicos de...',
-    ],
-    [
-        'titulo' => 'Ensaio de Cavitação em Bombas Centrífugas',
-        'descricao' => 'Oferecemos serviços de ensaio de cavitação em bombas centrífugas, 
-        com o objetivo de determinar...',
-    ],
-    [
-        'titulo' => 'Ensaios em Componentes Hidráulicos',
-        'descricao' => 'Realizamos ensaios de desempenho e perda de carga em componentes
-        hidráulicos essenciais...',
-    ],
-    [
-        'titulo' => 'Teste Hidrostático em Bombas Hidráulicas',
-        'descricao' => 'Oferecemos um serviço especializado de teste hidrostático em 
-        bombas hidráulicas, com o objetivo de...',
-    ],
-    [
-        'titulo' => 'Consultoria em desenvolvimento de projetos de motobombas centrifugas',
-        'descricao' => 'Oferecemos serviços de consultoria especializada voltados
-        para o desenvolvimento de projetos de motobombas...',
-    ],
-    [
-        'titulo' => 'Calibração de medidores de vazão',
-        'descricao' => 'Estamos trabalhando para oferecer em breve o serviço de 
-        calibração de medidores de vazão...',
-    ],
-    [
-        'titulo' => 'Ensaio de Eficiência Energética em Condicionadores de Ar e Bombas de Calor',
-        'descricao' => 'Estamos atualmente desenvolvendo o serviço de ensaio de 
-        eficiência energética em...',
-    ]
-];
+$imagens = [
+    'images/Projetos/projeto1-img1.jpg',
+    'images/projetos/projeto1-img2.jpg',
+    'images/projetos/projeto1-img3.jpg',
+]
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +12,7 @@ $servicos = [
 <head>
     <meta charset="utf-8">
     <title>LEB - Laboratório de Etiquetagem de Bombas</title>
+    <link rel="shortcut icon" href="{{ asset('images/logo-LEB.svg') }}">
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <link rel="stylesheet" href="{{ asset('css/welcome/topbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/welcome/contact.css') }}" />
@@ -65,7 +28,23 @@ $servicos = [
 </head>
 
 <body>
+    @foreach($imagens as $i)
+    <img src="{{ asset($i) }}" class='d-none' id="{{$i}}">
+    @endforeach
 
+    <div class="modal fade" id="modalProjects" tabindex="-1" aria-labelledby="modalProjectsLabel" aria-hidden="true" style='overflow-y: hidden;'>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitulo">Nossos Serviços</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     <main class="content">
         <header>
             <nav class="navbar navbar-expand-lg topbar">
@@ -97,7 +76,7 @@ $servicos = [
                                 <i class="fa fa-document" aria-hidden="true"></i>
                             </a>
                             @elseif(Auth::user()->role === 'Admin')
-                            <a class="dropdown-item" href="{{ route('workspace') }}">
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">
 
                                 {{ __('Dashboard') }}
                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -120,7 +99,7 @@ $servicos = [
             </nav>
         </header>
 
-        <div class="home" id="home">
+        <div class="color home" id="home">
             <img class="home-gradient" src="{{ asset('images/fundo-degrade.svg') }}">
             <img class="logo-LEB" src="{{ asset('images/logo-LEB.svg') }}">
         </div>
@@ -227,7 +206,7 @@ $servicos = [
                                 </textarea>
                                 <p class="text-danger m-1 message-error"></p>
                             </div>
-                            <button  type="submit">Enviar</button>
+                            <button type="submit">Enviar</button>
                         </form>
                     </div>
                     <!-- <div class="contato-separator">
@@ -259,6 +238,7 @@ $servicos = [
         </div>
     </main>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="{{ asset('js/script.js') }}"></script>
     <!-- Script JavaScript para manipular o Modal -->
