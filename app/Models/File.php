@@ -24,6 +24,8 @@ class File extends Model
         'path',
         'description',
         'updated_by',
+        'user_id',
+        'folder_id'
     ];
 
     public $rules = [

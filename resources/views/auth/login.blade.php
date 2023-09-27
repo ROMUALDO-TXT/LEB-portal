@@ -140,9 +140,7 @@
             x = x.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3") //Coloca ponto entre o quinto e o sexto dígitos
             x = x.replace(/\.(\d{3})(\d)/, ".$1/$2") //Coloca uma barra entre o oitavo e o nono dígitos
             x = x.replace(/(\d{4})(\d)/, "$1-$2");
-            console.log(x);
             input.value = x;
-            console.log(input.value);
         }
     </script>
 </body>

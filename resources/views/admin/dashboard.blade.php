@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>LEB - Dashboard</title>
     <meta name="viewport" content="initial-scale=1, width=device-width">
+    <link rel="shortcut icon" href="{{ asset('images/logo-LEB.svg') }}">
     <link rel="stylesheet" href="{{ asset('css/areaAdmin/cliente.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/areaAdmin/files.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/areaAdmin/dashboard.css') }}" />
@@ -70,12 +71,11 @@
                             </a>
                             <hr style="margin: .1em auto;">
                             <ul class="collapse show nav flex-column ms-4 menu-clientes" id="submenu1" data-bs-parent="#menu">
-                                @for($i = 0; $i < 10; $i++) @foreach($clientes as $cl) <!---->
-                                    <li class="nav-clientes">
-                                        <a href="{{route('dashboard', ['cliente' => $cl->id])}}" class="nav-link px-0"> {{$cl->name}}</a>
-                                    </li>
-                                    @endforeach
-                                    @endfor
+                                @foreach($clientes as $cl) <!---->
+                                <li class="nav-clientes">
+                                    <a href="{{route('dashboard', ['cliente' => $cl->id])}}" class="nav-link px-0"> {{$cl->name}}</a>
+                                </li>
+                                @endforeach
                             </ul>
                         </li>
                         <li class="nav-items">
@@ -84,19 +84,21 @@
                             </a>
                             <hr style="margin: .1em auto;">
                             <ul class="collapse nav flex-column ms-4 menu-clientes" id="submenu2" data-bs-parent="#menu">
-                                @for($i = 0; $i < 10; $i++) @foreach($admins as $adm) <!---->
-                                    <li class="nav-clientes">
-                                        <a href="{{route('dashboard', ['admin' => $adm->id])}}" class="nav-link px-0"> {{$adm->name}}</a>
-                                    </li>
-                                    @endforeach
-                                    @endfor
+                                @foreach($admins as $adm) <!---->
+                                <li class="nav-clientes">
+                                    <a href="{{route('dashboard', ['admin' => $adm->id])}}" class="nav-link px-0"> {{$adm->name}}</a>
+                                </li>
+                                @endforeach
+
                             </ul>
                         </li>
                         <li>
-                            <a onclick="newUserModal()" class="nav-link mt-3 px-0 align-middle">
-                                <i class="fs-4 fa fa-user-plus"></i> 
-                                <span class="ms-1 d-none d-sm-inline">Novo Usuário</span> 
-                            </a>
+                            <button onclick="openUserModal({
+                                id: null,
+                            })" class="nav-link mt-3 px-0 align-middle">
+                                <i class="fs-4 fa fa-user-plus"></i>
+                                <span class="ms-1 d-none d-sm-inline">Novo Usuário</span>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -109,7 +111,15 @@
                     <div class="cliente-data">
                         <h5><b>Cliente: </b>{{$cliente->name}}</h5>
                         <h5><b>CNPJ: </b>{{$cliente->cnpj}}</h5>
-                        <button class="btn btn-primary btn-editar-cliente">Editar <i class="fa fa-regular fa-pen"></i></button>
+                        <div class="user-data-actions">
+                            <button class="btn btn-primary btn-editar-cliente" onclick="openUserModal({
+                                id: `{{$cliente->id}}`,
+                                name: `{{$cliente->name}}`,
+                                cnpj: `{{$cliente->cnpj}}`,
+                                role: `Cliente`,
+                            })"> Editar <i class="fa fa-regular fa-pen"></i></button>
+                            <button class="btn btn-danger btn-editar-cliente" onclick="removeUser(`{{$cliente->id}}`)">Excluir <i class="fa fa-regular fa-times"></i></button>
+                        </div>
                     </div>
                     <div class="div-horizontal"></div>
                     <div class="files-folders">
@@ -128,18 +138,40 @@
                                         @endif
                                         /{{is_null($folder) ? null : $folder->name}}
                                     </h5>
-                                    <button class="btn btn-success btn-add-folder" onclick="newFolderModal()"><i class="fa fa-regular fa-plus"></i></button>
+                                    <button class="btn btn-success btn-add-folder" onclick="openFolderModal({
+                                                id: null,
+                                                parentFolderId: `{{$folder->id}}`,
+                                                cliente: `{{$cliente->name}}`,
+                                                clienteId: `{{$cliente->id}}`,
+                                            })"><i class="fa fa-regular fa-plus"></i></button>
                                 </div>
                                 <ul class="projects">
                                     @if(isset($childFolders) && count($childFolders) > 0)
                                     @foreach($childFolders as $c)
                                     <li class="folder" id="folder-{{$c->id}}">
-                                        <i class="fa fa-folder" id="folder-icon"></i>
-                                        <h5>
-                                            <a href="{{route('dashboard', ['cliente'=>$cliente->id, 'folder' => $c->id]);}}">
-                                                {{$c->name}}
-                                            </a>
-                                        </h5>
+                                        <div class="folder-name">
+                                            <i class="fa fa-folder" id="folder-icon"></i>
+                                            <h5>
+                                                <a href="{{route('dashboard', ['cliente'=>$cliente->id, 'folder' => $c->id]);}}">
+                                                    {{$c->name}}
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div class="folder-actions">
+                                            <button onclick="openFolderModal({
+                                                id: `{{$c->id}}`,
+                                                name: `{{$c->name}}`,
+                                                parentFolderId: `{{$c->parent_folder_id}}`,
+                                                cliente: `{{$cliente->name}}`,
+                                                clienteId: `{{$cliente->id}}`,
+                                            })" title="Editar pasta" class="actions btn btn-secondary btn-sm">
+                                                <span class="fa fa-regular fa-pen"></span>
+                                            </button>
+
+                                            <button onclick="removeFolder(`{{$c->id}}`)" title="Deletar pasta" class="actions btn btn-danger btn-sm">
+                                                <span class="fa fa-times "></span>
+                                            </button>
+                                        </div>
                                     </li>
                                     @endforeach
                                     @endif
@@ -167,7 +199,31 @@
                                         <ul class="dropdown-menu" aria-labelledby="folderDropdown">
                                             @if(isset($childFolders) && count($childFolders) > 0)
                                             @foreach($childFolders as $c)
-                                            <li><a class="dropdown-item" href="{{route('dashboard', ['cliente'=>$cliente->id, 'folder' => $c->id])}}">{{$c->name}}</a></li>
+                                            <li class="folder" id="folder-{{$c->id}}">
+                                                <div class="folder-name">
+                                                    <i class="fa fa-folder" id="folder-icon"></i>
+                                                    <h5>
+                                                        <a href="{{route('dashboard', ['cliente'=>$cliente->id, 'folder' => $c->id]);}}">
+                                                            {{$c->name}}
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="folder-actions">
+                                                    <button onclick="openFolderModal({
+                                                id: `{{$c->id}}`,
+                                                name: `{{$c->name}}`,
+                                                parentFolderId: `{{$c->parent_folder_id}}`,
+                                                cliente: `{{$cliente->name}}`,
+                                                clienteId: `{{$cliente->id}}`,
+                                            })" title="Editar pasta" class="actions btn btn-secondary btn-sm">
+                                                        <span class="fa fa-regular fa-pen"></span>
+                                                    </button>
+
+                                                    <button onclick="removeFolder(`{{$c->id}}`)" title="Deletar pasta" class="actions btn btn-danger btn-sm">
+                                                        <span class="fa fa-times "></span>
+                                                    </button>
+                                                </div>
+                                            </li>
                                             @endforeach
                                             @endif
                                         </ul>
@@ -205,7 +261,16 @@
                     <div class="admin-data">
                         <h5><b>Nome: </b>{{$admin->name}}</h5>
                         <h5><b>CNPJ: </b>{{$admin->cnpj}}</h5>
-                        <button class="btn btn-primary btn-editar-cliente">Editar <i class="fa fa-regular fa-pen"></i></button>
+                        <div class="user-data-actions">
+                            <button class="btn btn-primary btn-editar-cliente" onclick="openUserModal({
+                                id: `{{$admin->id}}`,
+                                name: `{{$admin->name}}`,
+                                cnpj: `{{$admin->cnpj}}`,
+                                role: `Admin`,
+                            })">Editar <i class="fa fa-regular fa-pen"></i></button>
+                            <button class="btn btn-danger btn-editar-cliente" onclick="removeUser(`{{$admin->id}}`)">Excluir <i class="fa fa-regular fa-times"></i></button>
+                        </div>
+
                     </div>
                     <div class="div-horizontal"></div>
                     <div class="activities">
@@ -213,7 +278,7 @@
                             <thead>
                                 <tr>
                                     <th class="all">Cliente</th>
-                                    <th class="min-tablet-p">Arquivo</th>
+                                    <th class="min-tablet-p">Alvo</th>
                                     <th class="min-tablet-p">Data</th>
                                     <th class="min-tablet-p">Operação</th>
                                 </tr>
@@ -228,6 +293,10 @@
                     <h3 class="d-flex mx-auto my-auto"> {{$error}}</h3>
                 </div>
                 @endif
+                @else
+                <div class="area-cliente d-flex">
+                    <img src="{{ asset('images/logo-leb.svg') }}" class="logo-area-vazia" />
+                </div>
                 @endif
             </div>
         </div>
@@ -237,29 +306,115 @@
     @include('admin/edit-file')
     @include('admin/edit-folder')
     @include('admin/edit-user')
-
-    <div class="modal fade" id="modalDocs" tabindex="-1" aria-labelledby="modalDocsLabel" aria-hidden="true" style='overflow-y: hidden;'>
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Projetos em Andamento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin/preview-document')
 
     <!-- @include('layouts.footer') -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="{{ asset('js/modal.js') }}"></script>
     <script src="{{ asset('js/sidenav.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Inicializa o validador
+            $("#edit-user-form").validate({
+                // Define as regras de validação
+                rules: {
+                    "edit-user-name": {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 100
+                    },
+                    "edit-user-role": {
+                        required: true
+                    },
+                    "edit-user-cnpj": {
+                        required: true,
+                        cnpj: true,
+                    },
+                    "edit-user-password": {
+                        required: function() {
+                            return $("#disablePasswordFields").is(":checked");
+                        },
+                        minlength: 8,
+                        maxlength: 100
+                    },
+                    "edit-user-password-confirm": {
+                        required: function() {
+                            return $("#disablePasswordFields").is(":checked");
+                        },
+                        equalTo: "#edit-user-password"
+                    }
+                },
+                // Define as mensagens de erro
+                messages: {
+                    "edit-user-name": {
+                        required: "Campo obrigatório",
+                        minlength: "Mínimo de 3 caracteres",
+                        maxlength: "Máximo de 100 caracteres"
+                    },
+                    "edit-user-role": {
+                        required: "Campo obrigatório"
+                    },
+                    "edit-user-cnpj": {
+                        required: "Campo obrigatório",
+                        cnpj: "CNPJ inválido"
+                    },
+                    "edit-user-password": {
+                        required: "Campo obrigatório",
+                        minlength: "Mínimo de 8 caracteres",
+                        maxlength: "Máximo de 100 caracteres"
+                    },
+                    "edit-user-password-confirm": {
+                        required: "Campo obrigatório",
+                        equalTo: "As senhas não coincidem",
+                        minlength: "Mínimo de 8 caracteres",
+                        maxlength: "Máximo de 100 caracteres"
+                    }
+                }
+            });
+
+            $.validator.addMethod("cnpj", function(cnpj, element) {
+                cnpj = cnpj.replace(/[^\d]+/g, '');
+
+                if (cnpj === '') return false;
+
+                if (cnpj.length !== 14) return false;
+
+                // Validação do primeiro dígito verificador
+                let tamanho = cnpj.length - 2;
+                let numeros = cnpj.substring(0, tamanho);
+                const digitos = cnpj.substring(tamanho);
+                let soma = 0;
+                let pos = tamanho - 7;
+                for (let i = tamanho; i >= 1; i--) {
+                    soma += numeros.charAt(tamanho - i) * pos--;
+                    if (pos < 2) pos = 9;
+                }
+                let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                if (resultado != digitos.charAt(0)) return false;
+
+                // Validação do segundo dígito verificador
+                tamanho = tamanho + 1;
+                numeros = cnpj.substring(0, tamanho);
+                soma = 0;
+                pos = tamanho - 7;
+                for (let i = tamanho; i >= 1; i--) {
+                    soma += numeros.charAt(tamanho - i) * pos--;
+                    if (pos < 2) pos = 9;
+                }
+                resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+                if (resultado != digitos.charAt(1)) return false;
+
+                return true;
+            }, "CNPJ inválido");
+        });
+    </script>
 
     @if(!empty($cliente) && !is_null($cliente))
     <script>
@@ -284,8 +439,12 @@
                         text: 'Adicionar <i class="fa fa-plus"></i>',
                         className: 'btn-add-files btn btn-success',
                         action: function() {
-                            $('#edit-file-modal').modal('show')
-                            fill({});
+                            openFileModal({
+                                id: null,
+                                clienteId: '{{$cliente->id}}',
+                                clienteName: '{{$cliente->name}}',
+                                folderId: '{{$folder->id}}',
+                            });
                         }
                     }],
 
@@ -309,14 +468,16 @@
                         }
                     },
                     columns: [{
-                            width: window.innerWidth < 768 ? '70%' : '30%',
+                            width: '30%',
                             data: 'name',
-                            name: 'nome'
+                            name: 'nome',
+                            className: 'col-overflow'
                         },
                         {
-                            width: '35%',
+                            width: '20%',
                             data: 'description',
-                            name: 'comentários'
+                            name: 'comentários',
+                            className: 'col-break'
                         },
                         {
                             width: '15%',
@@ -331,7 +492,7 @@
 
                         },
                         {
-                            width: '10%',
+                            width: '25%',
                             data: 'action',
                             name: 'ações',
                             orderable: false,
@@ -428,6 +589,84 @@
             });
 
         });
+    </script>
+    @endif
+
+    <script>
+        function removeFolder(id) {
+            var confirmacao = confirm("Tem certeza de que deseja excluir esta pasta? \nVocê perderá o acesso a todos os arquivos e subpastas atrelados.");
+            if (confirmacao) {
+                $.ajax({
+                    url: "{{ route('folders.remove', ['id' => ':id']) }}".replace(':id', id),
+                    type: "POST",
+                    data: {
+                        clienteId: "{{$clienteId}}",
+                        _token: "{{ csrf_token() }}",
+                        _method: "DELETE"
+                    },
+                    success: function(response) {
+                        alert("Pasta excluida com sucesso!");
+                        window.location.reload();
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("Erro ao excluir a pasta.");
+                    }
+                });
+            } else {
+                alert("Exclusão cancelada.");
+            }
+        }
+
+        function removeFile(id) {
+            var confirmacao = confirm("Tem certeza de que deseja excluir este arquivo?");
+            if (confirmacao) {
+                $.ajax({
+                    url: "{{ route('files.remove', ['id' => ':id']) }}".replace(':id', id),
+                    type: "POST",
+                    data: {
+                        clienteId: "{{$clienteId}}",
+                        _token: "{{ csrf_token() }}",
+                        _method: "DELETE"
+                    },
+                    success: function(response) {
+                        alert("Arquivo excluido com sucesso!");
+                        window.location.reload();
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("Erro ao excluir o arquivo.");
+                    }
+                });
+            } else {
+                alert("Exclusão cancelada.");
+            }
+        }
+
+        function removeUser(id) {
+            var confirmacao = confirm("Tem certeza de que deseja excluir este usuário?");
+            if (confirmacao) {
+                $.ajax({
+                    url: "{{ route('users.remove', ['id' => ':id']) }}".replace(':id', id),
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: "DELETE"
+                    },
+                    success: function(response) {
+                        alert("Usuário excluido com sucesso!");
+                        window.location.href = "{{ route('dashboard')  }}";
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("Erro ao excluir o usuário.");
+                    }
+                });
+            } else {
+                alert("Exclusão cancelada.");
+            }
+        }
+    </script>
+    @if(Session::has('message'))
+    <script>
+        alert('{{ Session::get("message") }}');
     </script>
     @endif
 </body>

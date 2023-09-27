@@ -24,6 +24,7 @@ class User extends Authenticatable
         'cnpj',
         'role',
         'password',
+        'updated_by',
     ];
 
     /**
@@ -32,7 +33,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'updated_by',
         'password',
         'remember_token',
     ];
@@ -51,6 +51,7 @@ class User extends Authenticatable
         'cnpj' => ['required', 'string'],
         'role' => ['required', 'string'],
         'password' => ['required', 'string'],
+        'updated' => ['required', 'number'],
     ];
 
     public function getRules(){

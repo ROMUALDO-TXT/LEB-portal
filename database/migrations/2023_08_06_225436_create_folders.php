@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('updated_by');
+            $table->softDeletes();
             $table->unsignedBigInteger('parent_folder_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('parent_folder_id')->references('id')->on('folders');

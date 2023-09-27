@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Folder extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'folders';
 
     protected $fillable = [
         'name',
-        'parent_folder_id'
+        'parent_folder_id',
+        'updated_by'
     ];
 
     public $rules = [
@@ -23,7 +25,8 @@ class Folder extends Model
 
     protected $dates = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     public function user(): BelongsTo

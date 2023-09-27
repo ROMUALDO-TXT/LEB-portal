@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <title>LEB - Documentos</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo-LEB.svg') }}">
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <link rel="stylesheet" href="{{ asset('css/areaCliente/cliente.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/areaCliente/files.css') }}" />
@@ -169,6 +170,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
     <script src="{{ asset('js/modal.js') }}"></script>
     <script>
         $(function() {
