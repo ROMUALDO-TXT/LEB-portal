@@ -9,8 +9,8 @@ var servicos = [
             ],
             imagens: [
                 'images/Projetos/projeto1-img1.jpg',
-                'images/projetos/projeto1-img2.jpg',
-                'images/projetos/projeto1-img3.jpg',
+                'images/Projetos/projeto1-img2.jpg',
+                'images/Projetos/projeto1-img3.jpg',
             ],
             links: [
                 'Link do escopo acreditado: http://www.inmetro.gov.br/laboratorios/rble/docs/CRL0883.pdf',
@@ -144,11 +144,11 @@ function adicionarCardsServico(tamanho) {
 
         for (let j = i; j < i + numCardsPorLinha && j < servicos.length; j++) {
             const card = document.createElement("div");
-            card.className = "card-servico col-md-4 col-sm-6 col-10";
+            card.className = "card-servico col-lg-4 col-md-6 col-sm-6 col-xs-12";
 
             const servicoDiv = document.createElement("div");
             servicoDiv.className = "servico";
-
+            
             const servicoTitle = document.createElement("p");
             servicoTitle.className = "servico-title";
             servicoTitle.textContent = servicos[j].titulo;
@@ -178,12 +178,10 @@ function adicionarCardsServico(tamanho) {
 function verificarTamanhoTela() {
     if (window.innerWidth < 768) {
         adicionarCardsServico("small");
-    } else if (window.innerWidth >= 768 && window.innerWidth <= 995) {
+    } else if (window.innerWidth >= 768 && window.innerWidth <= 991) {
         adicionarCardsServico("medium");
-    } else if (window.innerWidth >= 996 && window.innerWidth <= 1440) {
+    } else if (window.innerWidth >= 992) {
         adicionarCardsServico("large");
-    } else {
-        adicionarCardsServico("giga");
     }
 }
 

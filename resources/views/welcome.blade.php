@@ -1,8 +1,8 @@
 <?php
 $imagens = [
     'images/Projetos/projeto1-img1.jpg',
-    'images/projetos/projeto1-img2.jpg',
-    'images/projetos/projeto1-img3.jpg',
+    'images/Projetos/projeto1-img2.jpg',
+    'images/Projetos/projeto1-img3.jpg',
 ]
 ?>
 
@@ -23,7 +23,8 @@ $imagens = [
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 
@@ -31,27 +32,12 @@ $imagens = [
     @foreach($imagens as $i)
     <img src="{{ asset($i) }}" class='d-none' id="{{$i}}">
     @endforeach
-
-    <div class="modal fade" id="modalProjects" tabindex="-1" aria-labelledby="modalProjectsLabel" aria-hidden="true" style='overflow-y: hidden;'>
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalTitulo">Nossos Serviços</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <main class="content">
         <header>
             <nav class="navbar navbar-expand-lg topbar">
                 <a class="title navbar-brand m-lg-auto" href="{{ route('home') }}">
                     <h3>LEB</h3>
                 </a>
-                <button class="navbar-toggler collapsed menu" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class=" me-4 navbar-toggler collapsed menu" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars" style="font-size:24px; color:#b9a9a9;"></i>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarNav">
@@ -61,7 +47,9 @@ $imagens = [
                         <li class="title"><a href="#contato">Contato</a></li>
                     </ul>
                     @guest
-                    <a class="topbar-login nav-link navbar-text" href="{{ route('redirect') }}">{{ __('Login') }}</a></li>
+                    <div>
+                        <a class="topbar-login nav-link navbar-text" href="{{ route('redirect') }}">{{ __('Login') }}</a>
+                    </div>
                     @else
                     <div class="dropdown">
 
@@ -98,6 +86,9 @@ $imagens = [
                 </div>
             </nav>
         </header>
+
+
+    <main class="content">
 
         <div class="color home" id="home">
             <img class="home-gradient" src="{{ asset('images/fundo-degrade.svg') }}">
@@ -141,10 +132,13 @@ $imagens = [
                     </div>
                 </div>
             </div>
-            <div class="servicos-prestados" id="servicos-prestados">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#394671" fill-opacity="1" d="M0,96L80,117.3C160,139,320,181,480,176C640,171,800,117,960,112C1120,107,1280,149,1360,170.7L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-                </svg>
+            <div class="servicos-prestados">
+                <div class="servicos-ancora">
+                    <div id="servicos-prestados"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                        <path fill="#394671" fill-opacity="1" d="M0,96L80,117.3C160,139,320,181,480,176C640,171,800,117,960,112C1120,107,1280,149,1360,170.7L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+                    </svg>
+                </div>
                 <div class="servicos">
                     <h2>Serviços</h2>
                     <div id="servicosCarousel" class="servicos-container carousel slide " data-bs-ride="carousel">
@@ -235,6 +229,20 @@ $imagens = [
         </div>
         <div class="home-footer">
             @include('layouts.footer')
+        </div>
+
+        <div class="modal fade" id="modalProjects" tabindex="-1" aria-labelledby="modalProjectsLabel" aria-hidden="true" style='overflow-y: hidden;'>
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalTitulo">Nossos Serviços</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

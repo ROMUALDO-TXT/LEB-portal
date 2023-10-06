@@ -1,7 +1,12 @@
 /*                   HOME                     */
+.content {
+    width: 100%;
+}
+
 
 .home {
-    position: relative; /* Necessário para o posicionamento absoluto interno */
+    position: relative;
+    /* Necessário para o posicionamento absoluto interno */
     background-image: url('../../images/LEB.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -9,7 +14,7 @@
     height: 100vh;
     display: flex;
     justify-content: end;
-    z-index: 1;    
+    z-index: 1;
 }
 
 .home::before {
@@ -19,10 +24,12 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(270deg, rgba(99, 186, 204, 0.246) 0%, rgba(44,179,238,0.6) 50%, rgba(0,0,0,1) 100%);
+    background-image: linear-gradient(270deg, rgba(99, 186, 204, 0.246) 0%, rgba(44, 179, 238, 0.6) 50%, rgba(0, 0, 0, 1) 100%);
     /* Gradiente azul */
-    opacity: 1; /* Ajuste a opacidade conforme necessário */
-    pointer-events: none; /* Evita interação com o pseudo-elemento */
+    opacity: 1;
+    /* Ajuste a opacidade conforme necessário */
+    pointer-events: none;
+    /* Evita interação com o pseudo-elemento */
 }
 
 
@@ -33,33 +40,119 @@
     overflow: hidden;
     object-fit: cover;
     margin-left: 0;
+    width: auto;
     height: 100%;
-    z-index: 2; /* Coloca o gradiente por baixo da logo */
+    z-index: 2;
+    /* Coloca o gradiente por baixo da logo */
 }
 
 .logo-LEB {
     position: absolute;
     top: 15%;
-    right: 5%; /* Ajuste a posição horizontal conforme necessário */
+    right: 5%;
+    /* Ajuste a posição horizontal conforme necessário */
     width: max-content;
     height: 70vh;
-    z-index: 3; /* Coloca a logo sobre o gradiente */
+    z-index: 3;
+    /* Coloca a logo sobre o gradiente */
 }
 
-.modal-imagens{
+.modal-imagens {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     margin: 2% 0;
 }
 
-.modal-body{
+.modal-body {
     padding: 5%;
     font-size: 1em;
 }
 
-.modal-servico-titulo{
+.modal-servico-titulo {
     text-align: center;
     /* margin-bottom: 5%; */
 }
 
+@media (max-width: 768px) {
+    .home {
+        height: 60vh;
+        justify-content: center;
+        /* Centraliza o conteúdo verticalmente */
+        text-align: center;
+        /* Centraliza o texto horizontalmente */
+        background-position: center;
+        /* Centraliza a imagem de fundo */
+        align-items: center;
+    }
+
+    .home::before {
+        background-image: linear-gradient(180deg, rgba(99, 186, 204, 0.246) 0%, rgba(44, 179, 238, 0.6) 50%, rgba(0, 0, 0, 1) 100%);
+    }
+
+    .logo-LEB {
+        top:auto;
+        right:auto;
+        height: 70%;
+        width: auto;
+        margin: auto auto;
+    }
+
+    .home-gradient {
+        width: 100vw;
+        height: 100%;
+    }
+
+
+    .modal-imagens {
+        flex-direction: column;
+        /* Altera para coluna para melhorar a leitura */
+        align-items: center;
+        /* Centraliza o conteúdo */
+    }
+
+    .modal-servico-titulo {
+        margin-bottom: 5%;
+        text-align: center;
+        /* Centraliza o texto horizontalmente */
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .home {
+        height: 80vh;
+        justify-content: center;
+        text-align: center;
+        background-position: center;
+        align-items: center;
+    }
+
+    .logo-LEB {
+        top:auto;
+        right:auto;
+        height: 70%;
+        width: auto;
+        margin: auto auto;
+        /* Centraliza horizontalmente com margem superior e inferior */
+    }
+
+}
+
+@media (width: 768px) and (height: 1024px) and (orientation: portrait) {
+    .home {
+        height: 80vh;
+        justify-content: center;
+        /* Centraliza o conteúdo verticalmente */
+        text-align: center;
+        /* Centraliza o texto horizontalmente */
+        background-position: center;
+        /* Centraliza a imagem de fundo */
+    }
+
+    .logo-LEB {
+        width: auto;
+        height: 80%;
+        margin: 2% auto;
+        /* Centraliza horizontalmente com margem superior e inferior */
+    }
+}

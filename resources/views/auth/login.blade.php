@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>LEB - Laboratório de Etiquetagem de Bombas</title>
+    <link rel="shortcut icon" href="{{ asset('images/logo-LEB.svg') }}">
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <link rel="stylesheet" href="{{ asset('css/welcome/topbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/welcome/footer.css') }}" />

@@ -2,7 +2,7 @@
 /*                  TOP BAR                    */
 
 .topbar {
-    width: 100%;
+    width: 100vw;
     position: fixed !important;
     background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.90) 20.83%, rgba(0, 0, 0, 0.85) 35.42%, rgba(0, 0, 0, 0.80) 52.60%, rgba(0, 0, 0, 0.70) 69.27%, rgba(0, 0, 0, 0.40) 99.99%);
     z-index: 3;
@@ -94,7 +94,7 @@
 .topbar-login{
     display: inline;
     width: fit-content;
-    padding: 0 20px;
+    padding: 0 20px !important;
     color: rgb(241, 241, 241) !important;
     text-decoration: none;
     font-family: Inter;
@@ -102,6 +102,10 @@
     transition: all 0.3s ease-in-out;
     text-align: center;
     margin: 0;
+}
+
+.topbar-login:hover{
+    color: rgb(199, 199, 199)!important;
 }
 
 @media (min-width: 993px) {

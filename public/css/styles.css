@@ -262,6 +262,26 @@ footer a {
     padding-right: 20px;
 }
 
+body::-webkit-scrollbar {
+    width: 0.4em;
+    margin-top: 5%;
+    height: 10px;
+    background-color: #a6aaaa64;
+    border-radius: 10px
+}
+
+/* Altera a cor do thumb */
+body::-webkit-scrollbar-thumb {
+    background-color: #4b5ba4;
+
+}
+
+body::-webkit-scrollbar-thumb:active {
+    background-color: #3c4473;
+    border-radius: 5px;
+}
+
+
 /* @media (min-width: 320px)  and (max-width: 479px) {
     .content-background {
         margin-top: -6%;

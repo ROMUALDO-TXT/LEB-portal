@@ -295,7 +295,7 @@
                 @endif
                 @else
                 <div class="area-cliente d-flex">
-                    <img src="{{ asset('images/logo-leb.svg') }}" class="logo-area-vazia" />
+                    <img src="{{ asset('images/logo-LEB.svg') }}" class="logo-area-vazia" />
                 </div>
                 @endif
             </div>
