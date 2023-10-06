@@ -30,5 +30,7 @@ class HomeController extends Controller
         if ($request->user()->role === 'Admin') {
             return redirect()->route('dashboard');
         }
+
+        return redirect()->route('home');
     }
 }

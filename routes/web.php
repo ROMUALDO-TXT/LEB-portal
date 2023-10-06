@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/home', function () {
+    return view('welcome');
+});
+
+
 Route::get('/redirect',  [\App\Http\Controllers\HomeController::class, 'redirect'])->name('redirect');
 
 Route::post('/contact/send', [\App\Http\Controllers\ContactController::class, 'sendMessage'])->name('send-email');

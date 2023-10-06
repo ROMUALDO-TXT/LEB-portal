@@ -1,9 +1,16 @@
+.content {
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
 .home {
     position: relative; /* Necessário para o posicionamento absoluto interno */
     background-image: url('../../images/LEB.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0;
+    height: 100vh;
     display: flex;
     justify-content: end;
     overflow-y: hidden;
@@ -27,18 +34,13 @@
     display: flex;
     position: relative;
     width: 101vw;
-    height: 92.5vh;
+    height: 100vh;
+
     background-color: rgba(0, 0, 0, 0.575);
     flex-direction: column;
 }
 
-.content{
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
 .login-area{
-    margin-top: 5%;
     width: 100%;
     height: 100%;
     display: flex;
@@ -52,18 +54,6 @@
     box-shadow: 2px 2px 2px 1px rgb(155 133 133 / 50%);
 }
 
-.topbar-topics{
-    width: 60vw;
-    align-items: baseline;
-}
-.navbar-brand {
-    width: 20vw;
-}
-
-.topbar-login{
-    width: 20vw;
-}
-
 .card-header{
     font-size: 1em;
     font-weight: 100 !important;
@@ -73,10 +63,10 @@
 }
 
 .card-body{
-
     border-radius: 20px 20px;
     padding: 5% 8% 5% 8% !important;
-        background: linear-gradient(135deg, rgba(177,177,177,0.7240260361957283) 0%, rgba(126, 126, 126, 0.834) 100%);}
+    background-color: rgb(222, 222, 222);
+}
 .card-body input{
     background-color: rgba(255, 255, 255, 0.6);
 }
@@ -86,7 +76,74 @@
     margin: auto;
 }
 
+.cnpj{
+    background-color: white !important;
+    border: 1px solid #5252526e !important;
+}
+
+.form-check-input{
+    border: 1px solid #5252526e !important;
+}
+
+.password {
+    background-color: white !important;
+    border: 1px solid #5252526e;
+    width: 100%;
+    /* margin: .75rem; */
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    /* border: 1px solid #dee2e6; */
+    user-select: none;
+    padding: 0 !important;
+}
+
+.password .passwordInput {
+    padding: 0.375rem 0.75rem;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    margin: auto;
+    border: 0;
+    font-size: larger;
+    border-radius: 5px 0 0 5px;
+}
+
+.password .passwordInput:focus {
+    outline: none;
+}
+
+
+.password .passwordToggle {
+    border: 0;
+    width: auto;
+    border-left: 1px solid #dee2e6;
+    display: inline-block;
+    padding: .375rem 0.75rem;
+    transition: background-color 0.5s;
+    border-radius: 0 5px 5px 0;
+    background-color: rgb(250, 250, 250);
+}
+.password .passwordToggle:hover {
+    background: rgba(220, 216, 245, 0.384);
+    transition: background-color 0.5s;
+}
+
+.home-footer footer {
+    bottom: 0;
+}
+
 @media (max-width: 480px) {
+    .home{
+        background-position: center center;
+        height: 100vh;
+    }
+    .home::before {
+        height: 100vh;
+    }
+
     .card{
         width: 70%;
     }
@@ -99,7 +156,7 @@
     }
 
     .filter-home{
-        height: 84vh;
+        height: 100vh;
 
     }
 }
@@ -113,7 +170,7 @@
         width: 90%;
     }
     .filter-home{
-        height: 91.3vh;
+        height: 100vh;
 
     }
 }
@@ -126,15 +183,8 @@
 }
 
 @media (min-width: 993px) and (max-width: 1024px) {
-    .login-form{
-        width: 70%;
+    .card{
+
+        width: 60%;
     }
 }
-
-@media (min-width: 1025px) and (max-width: 1200px) {
-    .login-form{
-        width: 70%;
-    }
-}
-
-@media (min-width: 1201px) {}

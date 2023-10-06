@@ -54,7 +54,7 @@
                         <div class="col-md-6">
                             <label for="edit-user-password-confirm">{{ __('Confirme a senha') }}</label>
                             <div class="password">
-                                <input id="edit-user-password-confirm" type="password" class="passwordInput form-control" minLenght="8" maxLength="100" name="edit-user-password" name="edit-user-password-confirm" disabled>
+                                <input id="edit-user-password-confirm" type="password" class="passwordInput form-control" minLenght="8" maxLength="100" name="edit-user-password-confirm" disabled>
                                 <label>
                                     <button type="button" class="passwordToggle" id="password-confirm" disabled onclick="toggle(this)">
                                         <i class="far fa-eye" id="password-confirm-toggle"></i>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 
+@if(Auth::check())
+@php
+return redirect()->route('home');
+@endphp
+@endif
+
 <head>
     <meta charset="utf-8">
     <title>LEB - Laboratório de Etiquetagem de Bombas</title>
@@ -12,7 +18,8 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 
@@ -79,8 +86,7 @@
                                 <div class="row mb-3">
                                     <label for="cnpj" class="col-form-label">{{ __('CNPJ') }}</label>
 
-                                    <input id="cnpj" type="text" onchange="mask()" class="form-control @error('cnpj') is-invalid @enderror" name="cnpj" value="{{ old('cnpj') }}" required autocomplete="cnpj" autofocus>
-
+                                    <input id="cnpj" type="text" onchange="mask()" class="cnpj form-control @error('cnpj') is-invalid @enderror" name="cnpj" value="{{ old('cnpj') }}" required autocomplete="cnpj" autofocus>
                                     @error('cnpj')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -90,15 +96,14 @@
 
                                 <div class="row mb-3">
                                     <label for="password" class="col-form-label">{{ __('Senha') }}</label>
-
-
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <div class="password @error('password') is-invalid @enderror">
+                                        <input id="password" type="password" class="passwordInput" minLenght="8" maxLength="100" name="password" name="edit-user-password-confirm" required autocomplete="current-password">
+                                        <label>
+                                            <button type="button" class="passwordToggle" id="password-button" onclick="toggle(this)">
+                                                <i class="far fa-eye" id="password-toggle"></i>
+                                            </button>
+                                        </label>
+                                    </div>
                                 </div>
 
                                 <div class="row mb-3">
@@ -110,11 +115,6 @@
                                         </label>
                                     </div>
                                 </div>
-                                @if (Route::has('password.request'))
-                                <!-- <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Esqueci minha senha') }}
-                                    </a> -->
-                                @endif
 
                                 <div class="row mt-3">
                                     <button type="submit" class="btn btn-primary">
@@ -127,9 +127,7 @@
                 </div>
             </div>
         </div>
-        <div class="home-footer">
-            @include('layouts.footer')
-        </div>
+        @include('layouts.footer')
     </main>
     <script>
         function mask() {
@@ -142,6 +140,28 @@
             x = x.replace(/\.(\d{3})(\d)/, ".$1/$2") //Coloca uma barra entre o oitavo e o nono dígitos
             x = x.replace(/(\d{4})(\d)/, "$1-$2");
             input.value = x;
+        }
+
+        let state = false;
+
+        function toggle(show) {
+
+            let element;
+            let icon;
+            if (show.id === 'password-button') {
+                element = document.getElementById("password");
+                icon = document.getElementById("password-toggle");
+            }
+
+            if (state) {
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+                element.setAttribute("type", "password");
+                state = false;
+            } else {
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+                element.setAttribute("type", "text")
+                state = true;
+            }
         }
     </script>
 </body>
