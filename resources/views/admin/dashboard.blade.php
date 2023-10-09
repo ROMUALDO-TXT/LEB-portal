@@ -136,7 +136,9 @@
                                             /{{is_null($parentFolder) ? null : $parentFolder->name}}
                                         </a>
                                         @endif
-                                        /{{is_null($folder) ? null : $folder->name}}
+                                        <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                            /{{is_null($folder) ? null : $folder->name}}
+                                        </span>
                                     </h5>
                                     <button class="btn btn-success btn-add-folder" onclick="openFolderModal({
                                                 id: null,
@@ -150,34 +152,34 @@
                                     @foreach($childFolders as $c)
                                     <li class="folder" id="folder-{{$c->id}}">
                                         <div class="folder-name">
-                                            <i class="fa fa-folder" id="folder-icon"></i>
+                                            <div class="folder-actions">
+                                                <button onclick="openFolderModal({
+                                                    id: `{{$c->id}}`,
+                                                    name: `{{$c->name}}`,
+                                                    parentFolderId: `{{$c->parent_folder_id}}`,
+                                                    cliente: `{{$cliente->name}}`,
+                                                    clienteId: `{{$cliente->id}}`,
+                                                })" title="Editar pasta" class="actions btn btn-secondary btn-sm">
+                                                    <span class="fa fa-regular fa-pen"></span>
+                                                </button>
+    
+                                                <button onclick="removeFolder(`{{$c->id}}`)" title="Deletar pasta" class="actions btn btn-danger btn-sm">
+                                                    <span class="fa fa-times "></span>
+                                                </button>
+                                            </div>
+                                            <!-- <i class="fa fa-folder" id="folder-icon"></i> -->
                                             <h5>
                                                 <a href="{{route('dashboard', ['cliente'=>$cliente->id, 'folder' => $c->id]);}}">
                                                     {{$c->name}}
                                                 </a>
                                             </h5>
                                         </div>
-                                        <div class="folder-actions">
-                                            <button onclick="openFolderModal({
-                                                id: `{{$c->id}}`,
-                                                name: `{{$c->name}}`,
-                                                parentFolderId: `{{$c->parent_folder_id}}`,
-                                                cliente: `{{$cliente->name}}`,
-                                                clienteId: `{{$cliente->id}}`,
-                                            })" title="Editar pasta" class="actions btn btn-secondary btn-sm">
-                                                <span class="fa fa-regular fa-pen"></span>
-                                            </button>
-
-                                            <button onclick="removeFolder(`{{$c->id}}`)" title="Deletar pasta" class="actions btn btn-danger btn-sm">
-                                                <span class="fa fa-times "></span>
-                                            </button>
-                                        </div>
                                     </li>
                                     @endforeach
                                     @endif
                                 </ul>
                             </div>
-
+                            <!-- 
                             <div class="folders-projects-container d-md-none">
                                 <h3>Documentos</h3>
                                 <div class="d-flex">
@@ -190,7 +192,9 @@
                                             /{{is_null($parentFolder) ? null : $parentFolder->name}}
                                         </a>
                                         @endif
-                                        /{{is_null($folder) ? null : $folder->name}}
+                                        <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                            /{{is_null($folder) ? null : $folder->name}}
+                                        </span>
                                     </p>
                                     <div class="dropdown pastas-list">
                                         <button class="btn btn-primary dropdown-toggle pastas-select" type="button" id="folderDropdown" data-bs-toggle="dropdown" aria-expanded="false" <?php echo (isset($childFolders) && count($childFolders) > 0) ? 'title="Sub-pastas"' : 'disabled title="Não há sub-pastas"'; ?>>
@@ -229,9 +233,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="div-vertical"></div>
+                            </div> -->
                         </div>
+                        <div class="div-vertical"></div>
                         <div class="files-projects">
                             <h3 class="d-none d-md-block">Documentos</h3>
                             <table class="table table-striped nowrap responsive hover filesTable">
@@ -316,6 +320,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.13.6/features/pageResize/dataTables.pageResize.min.js"></script>
     <script src="{{ asset('js/modal.js') }}"></script>
     <script src="{{ asset('js/sidenav.js') }}"></script>
 
@@ -427,6 +432,7 @@
                 var table = $('.filesTable').DataTable({
                     processing: true,
                     serverSide: false,
+                    pageResize: true,
                     pageLength: window.innerWidth < 768 ? 4 : 5,
                     scrollCollapse: window.innerWidth < 768,
                     scrollY: window.innerWidth < 768 ? '34vh' : 'inherit',
@@ -474,7 +480,7 @@
                             className: 'col-overflow'
                         },
                         {
-                            width: '20%',
+                            width: '19%',
                             data: 'description',
                             name: 'comentários',
                             className: 'col-break'
@@ -492,7 +498,7 @@
 
                         },
                         {
-                            width: '25%',
+                            width: '26%',
                             data: 'action',
                             name: 'ações',
                             orderable: false,
@@ -529,7 +535,8 @@
 
                 var atividades = $('.activitiesTable').DataTable({
                     processing: true,
-                    serverSide: true,
+                    serverSide: false,
+                    pageResize: true,
                     pageLength: window.innerWidth < 768 ? 5 : 7,
                     scrollCollapse: window.innerWidth < 768,
                     scrollY: window.innerWidth < 768 ? '34vh' : 'inherit',

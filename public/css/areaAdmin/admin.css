@@ -22,9 +22,9 @@
 }
 
 .btn-editar-cliente{
-    width: fit-content;
+    width: max-content;
     margin-right: 0;
-    margin-left: auto;
+    margin-left: 10px;
 }
 
 .activitiesTable th {

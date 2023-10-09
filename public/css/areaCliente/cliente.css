@@ -38,7 +38,7 @@
     display: grid;
     grid-template-columns: 40fr 1fr 120fr;
     max-width: 85%;
-    max-height: 90%;
+    max-height: 80%;
     min-height: 72%;
     margin: auto;
     z-index: 3;

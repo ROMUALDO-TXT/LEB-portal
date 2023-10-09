@@ -1,7 +1,8 @@
 .sidebar{
     z-index: 6;
     padding-right: 0 !important;
-    background-color: rgba(0, 0, 0, 0.70)
+    background-color: rgba(0, 0, 0, 0.70);
+    max-width: 100%;
 }
 
 .sidebar-top{
@@ -12,7 +13,8 @@
 
 .sidebar-content{
     z-index: 6;
-
+    width: 100%;
+    overflow: hidden;
 }
 
 .fa-chevron-down{
@@ -33,7 +35,9 @@
 }
 
 .nav-clientes{
+    color: white;
     list-style-type: disc !important;
+    word-wrap: break-word;
 }
 
 .menu-clientes{

@@ -23,6 +23,7 @@
 
 .user-data-actions{
     display: flex;
+    justify-content: flex-end
 }
 
 .btn-editar-cliente{
@@ -41,7 +42,7 @@
 .files-folders{
     min-height: 85%;
     display: grid;
-    grid-template-columns: 3fr 8fr;
+    grid-template-columns: 30fr 1fr 80fr;
 }
 
 .url-container{
@@ -58,6 +59,8 @@
     border-radius: 5px;
     border: 1px solid black;
     display: flex;
+    width: 100%;
+    overflow: hidden;
 }
 
 .retorno {
@@ -81,7 +84,8 @@
 }
 
 .folders-projects {
-    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
     height: inherit;
     display: flex;
 }
@@ -106,7 +110,7 @@
 .projects::-webkit-scrollbar {
     width: 0.4em;
     margin-top: 5%;
-    height: 10px;
+    height: 5px;
     background-color: #a6aaaa64;
     border-radius: 10px;
 }
@@ -134,8 +138,16 @@
     display: inline-flex;
     align-items: baseline;
 }
+
+.folder-actions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+
+
 .folder-actions button{
-    width: 2em;
+    width: 2.2em;
 }
 
 .projects li:first-child {
