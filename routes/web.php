@@ -29,13 +29,11 @@ Route::post('/contact/send', [\App\Http\Controllers\ContactController::class, 's
 Auth::routes();
 Auth::routes(['register' => false]); // Desativa a rota padrão de registro
 
-Route::group(['middleware' => 'isCliente', 'middleware' => 'isAdmin'], function () {
-    Route::get('/download', [\App\Http\Controllers\FileController::class, 'download'])->name('download');
-});
 
 Route::group(['middleware' => 'isCliente'], function () {
     Route::get('/workspace', [\App\Http\Controllers\UserController::class, 'workspace'])->name('workspace');
     Route::get('/workspace/files', [\App\Http\Controllers\FileController::class, 'getFolderFiles'])->name('workspace.files');
+    Route::get('/workspace/download', [\App\Http\Controllers\FileController::class, 'downloadFile'])->name('workspace.download');
 });
 
 Route::group(['middleware' => 'isAdmin'], function () {
@@ -54,4 +52,5 @@ Route::group(['middleware' => 'isAdmin'], function () {
     //Folder
     Route::post('/folders/save',  [\App\Http\Controllers\FolderController::class, 'save'])->name('folders.save');
     Route::delete('/folders/remove/{id} ',  [\App\Http\Controllers\FolderController::class, 'remove'])->name('folders.remove');
+    Route::get('/dashboard/download', [\App\Http\Controllers\FileController::class, 'downloadFile'])->name('download');
 });

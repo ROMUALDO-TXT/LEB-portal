@@ -105,6 +105,10 @@
     text-align: center;
     margin: 0;
 }
+
+.topbar-login:hover{
+    color: rgb(199, 199, 199)!important;
+}
 @media (max-width: 480px) {
     .topbar-topics{
         width: 60%;

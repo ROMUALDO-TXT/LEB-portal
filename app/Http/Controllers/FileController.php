@@ -149,7 +149,7 @@ class FileController extends Controller
                         cliente: `' . htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8') . '`,
                         folder: `' . htmlspecialchars($folder->name, ENT_QUOTES, 'UTF-8') . '`,
                         name: `' . htmlspecialchars($row->name, ENT_QUOTES, 'UTF-8') . '`,
-                        description: `' . htmlspecialchars($row->description, ENT_QUOTES, 'UTF-8'). '`,
+                        description: `' . htmlspecialchars($row->description, ENT_QUOTES, 'UTF-8') . '`,
                         updatedAt: `' . $row->updated_at . '`,
                         file: `' . $row->path . '`,
                         path: `' . asset('storage/uploads/' . $row->path) . '`
@@ -166,10 +166,10 @@ class FileController extends Controller
                     })" title="Editar documento" class="actions btn btn-secondary btn-sm">
                         <span class="fa fa-regular fa-pen"></span>
                     </button> 
-                    <button onclick="removeFile('.$row->id.')" title="Deletar documento" class="actions btn btn-danger btn-sm">
+                    <button onclick="removeFile(' . $row->id . ')" title="Deletar documento" class="actions btn btn-danger btn-sm">
                         <span class="fa fa-times "></span>
                     </button>                     
-                    <a class="actions btn btn-primary btn-sm " onclick="(e)=>{e.preventDefault(); e.stopPropagation()}" href="' . route('download', ['id' => $row->id]) . '" target="_blank" title="Download do documento" download>
+                    <a class="actions btn btn-primary btn-sm " onclick="(e)=>{e.preventDefault(); e.stopPropagation()}" href="' . route('download', ['id' => $row->id]) . ' title="Download do documento">
                     <span style="color: white" class="fa fa-arrow-down"></span>
                     </a>';
 
@@ -227,17 +227,17 @@ class FileController extends Controller
                     $actionBtn = '
                     <button onclick="openDocumentModal({
                         id: ' . $row->id . ',
-                        cliente: `' . $user->name . '`,
-                        folder: `' . $folder->name . '`,
-                        name: `' . $row->name . '`,
-                        description: `' . $row->description . '`,
+                        cliente: `' . htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8') . '`,
+                        folder: `' . htmlspecialchars($folder->name, ENT_QUOTES, 'UTF-8') . '`,
+                        name: `' . htmlspecialchars($row->name, ENT_QUOTES, 'UTF-8') . '`,
+                        description: `' . htmlspecialchars($row->description, ENT_QUOTES, 'UTF-8') . '`,
                         updatedAt: `' . $row->updated_at . '`,
                         file: `' . $row->path . '`,
                         path: `' . asset('storage/uploads/' . $row->path) . '`
                     })" title="Visualizar documento" class="actions btn btn-success btn-sm">
                         <span class="fa fa-eye preview-eye"></span>
                     </button> 
-                    <a class="actions btn btn-primary btn-sm " onclick="(e)=>{e.preventDefault(); e.stopPropagation();}" href="' . route('download', ['id' => $row->id]) . '" target="_blank" title="Download do documento" download>
+                    <a class="actions btn btn-primary btn-sm " onclick="(e)=>{e.preventDefault(); e.stopPropagation()}" href="' . route('workspace.download', ['id' => $row->id]) . '" title="Download do documento">
                     <span style="color: white" class="fa fa-arrow-down"></span>
                     </a>';
 
@@ -248,12 +248,22 @@ class FileController extends Controller
         }
     }
 
-    public function download(Request $request)
+    public function downloadFile(Request $request)
     {
         $id = $request->query('id');
-        $file = File::find($id);
-    
-        $filePath = 'public/uploads/'. $file->path;
+        $role = auth()->user()->role;
+        if ($role == 'Cliente') {
+            $userId = auth()->user()->id;
+            $user = User::find($userId);
+            $file = $user->files()->find($id);
+            if (empty($file) || is_null($file)) {
+                Session::flash('message', 'Arquivo não encontrado!');
+                return redirect()->back();
+            }
+        } else {
+            $file = File::find($id);
+        }
+        $filePath = 'public/uploads/' . $file->path;
         if (Storage::exists($filePath)) {
             $extension = pathinfo($filePath, PATHINFO_EXTENSION);
             $mimeTypes = [
@@ -267,14 +277,13 @@ class FileController extends Controller
                 'xls' => 'application/vnd.ms-excel',
                 'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             ];
-    
+
             $contentType = $mimeTypes[$extension] ?? 'application/octet-stream';
-            return Storage::download($filePath, $file->name .'.'. $extension, ['Content-Type' => $contentType]);
+            return Storage::download($filePath, $file->name . '.' . $extension, ['Content-Type' => $contentType]);
         } else {
             Session::flash('message', 'Arquivo não encontrado!');
-            return response('', 404);
+            return redirect()->back();
         }
-    
     }
 
     public function messages()

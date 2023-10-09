@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -20,28 +16,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
 </head>
 
-<body>
-    <div class="modal fade" id="modalDocs" tabindex="-1" aria-labelledby="modalDocsLabel" aria-hidden="true" style='overflow-y: hidden;'>
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Visualizar documento</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
-                    <embed id="view-document" height="800" width="768" src="#" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+<body style="width:100vw">
     <header>
         <nav class="navbar navbar-expand-lg topbar">
             <a class="title navbar-brand m-lg-auto" href="{{ route('home') }}">
@@ -94,7 +73,9 @@
                                 /{{$parentFolder->name}}
                             </a>
                             @endif
-                            /{{$folder->name}}
+                            <span style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                                /{{$folder->name}}
+                            </span>
                         </h5>
                         <ul class="projects">
                             @if(isset($childFolders) && count($childFolders) > 0)
@@ -111,7 +92,6 @@
                             @endif
                         </ul>
                     </div>
-
                     <div class="folders-projects-container d-md-none">
                         <h3>Documentos</h3>
                         <div class="d-flex">
@@ -140,8 +120,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="div1"></div>
                 </div>
+                <div class="div1"></div>
                 <div class="files-projects">
                     <h3 class="d-none d-md-block">Documentos</h3>
                     <table class="table table-striped nowrap responsive hover filesTable">
@@ -163,14 +143,13 @@
     </div>
     @include('layouts.footer')
 
+    @include('admin/preview-document')
 
-    <script src="{{ asset('js/script.js') }}"></script>
-    <!-- Script JavaScript para manipular o Modal -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    
     <script src="{{ asset('js/modal.js') }}"></script>
     <script>
         $(function() {
@@ -181,10 +160,11 @@
 
                 var table = $('.filesTable').DataTable({
                     processing: true,
-                    serverSide: true,
+                    serverSide: false,
                     pageLength: window.innerWidth < 768 ? 4 : 5,
                     scrollCollapse: window.innerWidth < 768,
                     scrollY: window.innerWidth < 768 ? '34vh' : 'inherit',
+                    scrollX: false,
                     lengthChange: false,
                     responsive: true,
                     language: {
@@ -208,12 +188,14 @@
                     columns: [{
                             width: window.innerWidth < 768 ? '70%' : '30%',
                             data: 'name',
-                            name: 'nome'
+                            name: 'nome',
+                            className: 'col-overflow'
                         },
                         {
-                            width: '35%',
+                            width: '31%',
                             data: 'description',
-                            name: 'comentários'
+                            name: 'comentários',
+                            className: 'col-break'
                         },
                         {
                             width: '15%',
@@ -228,9 +210,10 @@
 
                         },
                         {
-                            width: '10%',
+                            width: '14%',
                             data: 'action',
                             name: 'ações',
+                            className: 'col-actions',
                             orderable: false,
                             searchable: false
                         },
@@ -247,39 +230,12 @@
             });
 
         });
-
-        function previewDocument(link) {
-            const fileExtensions = [
-                "pdf",
-                "doc",
-                "docx",
-                "xls",
-                "xlsx",
-                "ppt",
-                "pptx",
-                "jpg",
-                "jpeg",
-                "png",
-                "gif",
-                "bmp",
-                "txt",
-                "csv",
-                "xml",
-                "mp3",
-                "wav",
-                "mp4",
-                "avi"
-            ];
-            if (!link || !fileExtensions.includes(link.split('.')[1])) {
-                alert("Visualização não disponível");
-            } else {
-                const embed = document.getElementById('view-document');
-                // embed.setAttribute('src', "{{str_replace('\\', '/', public_path('uploads'))}}" + "\\" + link);
-                embed.setAttribute('src', `{{asset('uploads/${link}')}}`)
-                $('#modalDocs').modal('show')
-            }
-        }
     </script>
+    @if(Session::has('message'))
+    <script>
+        alert('{{ Session::get("message") }}');
+    </script>
+    @endif
 </body>
 
 </html>

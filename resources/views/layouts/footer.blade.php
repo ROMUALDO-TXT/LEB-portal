@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{ asset('css/welcome/footer.css') }}" />
-
 <footer class="py-1 bg-footer">
     <div class="container">
         <div class="copyright-footer">

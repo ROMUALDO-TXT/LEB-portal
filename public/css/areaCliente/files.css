@@ -1,5 +1,5 @@
 .files-projects {
-    width: 100%;
+    max-width: 100%;
     padding: .5em;
 }
 
@@ -13,14 +13,15 @@
 
 .dataTables_wrapper {
     max-width: 100%;
-    border-radius: 10px;
+    overflow: hidden;
 }
 
 .filesTable {
+    table-layout: fixed !important;
+    word-wrap: break-word;
     max-width: 100%;
     border-radius: 50px;
 }
-
 .filesTable .actions {
     width: 34px;
 }
@@ -77,6 +78,37 @@ div.dataTables_wrapper div.dataTables_info {
     width: 100%;
 }
 
+.col-actions{
+    margin: auto
+}
+
+.col-overflow{
+    overflow-x: auto;
+}
+
+.col-overflow::-webkit-scrollbar {
+    height: 5px;
+    margin: auto 5px 45px 5px;
+    background-color: #a6aaaa64;
+    border-radius: 10px;
+}
+
+/* Altera a cor do thumb */
+.col-overflow::-webkit-scrollbar-thumb {
+    background-color: #b1b1b1;
+    border-radius: 10px;
+}
+
+.col-overflow::-webkit-scrollbar-thumb:active {
+    background-color: #a3a3a3;
+    border-radius: 10px;
+}
+
+.col-break{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 @media (max-width: 480px) {
     .dataTables_filter{

@@ -36,11 +36,11 @@
 
 .area-cliente {
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    width: 80%;
+    grid-template-columns: 40fr 1fr 120fr;
+    max-width: 85%;
     max-height: 90%;
     min-height: 72%;
-    margin: auto 10% auto 10%;
+    margin: auto;
     z-index: 3;
     background-color: #b1b1b1ed;
     border-radius: 20px;
@@ -52,6 +52,8 @@
     border-radius: 5px;
     border: 1px solid black;
     display: flex;
+    width: 100%;
+    overflow: hidden;
 }
 
 .retorno {
@@ -75,7 +77,8 @@
 }
 
 .folders-projects {
-    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
     height: inherit;
     display: flex;
 }
@@ -99,7 +102,7 @@
 .projects::-webkit-scrollbar {
     width: 0.4em;
     margin-top: 5%;
-    height: 10px;
+    height: 5px;
     background-color: #a6aaaa64;
     border-radius: 10px;
 }
@@ -122,6 +125,11 @@
     align-items: baseline;
     padding: 3% 0;
     justify-content: flex-start;
+    max-width: 95%;
+}
+
+.folder h5 a{
+    overflow-x: auto;
 }
 
 .projects li:first-child {
@@ -136,22 +144,16 @@
 }
 
 .div1 {
-    width: 5px;
-    max-height: 100%;
-    margin: 5% 0;
-    background-color: rgb(29, 29, 29);
-    border-radius: 5px;
+    width: 4px;
+    height: 99.7%;
+    margin: 10% 0;
+    background-color: rgb(29, 29, 29, .8);
 }
+
 
 @media (min-width: 320px) {
     .folders-url{
         margin-right: 2%!important;
-    }
-}
-
-@media (min-width: 375px) {
-    .folders-url{
-        margin-right: 7%!important;
     }
 }
 @media (max-width: 480px) {
@@ -209,3 +211,44 @@
 @media (min-width: 1025px) and (max-width: 1200px) {}
 
 @media (min-width: 1201px) {}
+
+
+.document-modal-body{
+    background-color: #888!important;
+    display: grid !important;
+    grid-template-columns: 30fr 1fr 8fr !important;
+    max-height: 90vh; 
+    overflow-y: hidden;
+}
+
+.document-modal-content{
+    padding: 1%;
+}
+
+.document-modal-information{
+    padding: 5% 8% 5% 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.document-modal-information .file-info{
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+    margin-top: 12%;
+    list-style: none;
+    padding-left: 0;
+    overflow-y: auto;
+}
+.document-modal-information div h5{
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+}
+
+.div-modal-vertical {
+    width: 3px;
+    max-height: 100%;
+    margin: 1% 5%;
+    background-color: rgba(29, 29, 29, 0.8);
+    border-radius: 5px;
+}
+

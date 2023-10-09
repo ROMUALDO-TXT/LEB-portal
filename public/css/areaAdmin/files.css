@@ -19,7 +19,6 @@
 .filesTable {
     table-layout: fixed !important;
     word-wrap: break-word;
-
     max-width: 100%;
     border-radius: 50px;
 }

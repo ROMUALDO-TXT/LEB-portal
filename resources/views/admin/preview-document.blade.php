@@ -61,14 +61,15 @@
             fileExtension === 'pptx') {
             document.getElementById('documentModalContent').style.overflow = 'hidden';
 
-            fileViewer.innerHTML = `<iframe src="${fileURL}" width="100%" height="500px"></iframe>`;
+            fileViewer.innerHTML = `<iframe src="${fileURL}" width="100%" height="480px"></iframe>`;
         } else if (fileExtension === 'jpg' ||
             fileExtension === 'jpeg' ||
             fileExtension === 'png' ||
             fileExtension === 'gif' ||
             fileExtension === 'bmp') {
             // Exibir imagens
-            fileViewer.innerHTML = `<img src="${fileURL}" alt="Imagem" width: '100%'>`;
+            fileViewer.innerHTML = `<img src="${fileURL}" alt="Imagem" height="460px" width="auto" style="margin: auto">`;
+            fileViewer.style = "justify-content: center; display: flex;"
         } else if (fileExtension === 'txt' ||
             fileExtension === 'csv' ||
             fileExtension === 'xml') {

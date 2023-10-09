@@ -426,7 +426,7 @@
 
                 var table = $('.filesTable').DataTable({
                     processing: true,
-                    serverSide: true,
+                    serverSide: false,
                     pageLength: window.innerWidth < 768 ? 4 : 5,
                     scrollCollapse: window.innerWidth < 768,
                     scrollY: window.innerWidth < 768 ? '34vh' : 'inherit',
