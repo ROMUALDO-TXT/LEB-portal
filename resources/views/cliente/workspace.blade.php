@@ -94,7 +94,7 @@
                     </div>
                     <div class="folders-projects-container d-md-none">
                         <h3>Documentos</h3>
-                        <div class="d-flex">
+                        <div class="d-flex justify-content-center">
                             <p class="folders-url">
                                 @if($parentUrl !== "#")
                                 <a href="{{$parentUrl}}">
@@ -128,7 +128,7 @@
                         <thead>
                             <tr>
                                 <th class="all">Nome</th>
-                                <th class="min-tablet-p">Comentários</th>
+                                <th class="min-tablet-p hidden-md">Comentários</th>
                                 <th class="min-tablet-p">Data</th>
                                 <th class="min-tablet-p">Tipo</th>
                                 <th class="all">Ações</th>
@@ -163,10 +163,7 @@
                     processing: true,
                     serverSide: false,
                     pageResize: true,
-                    pageLength: window.innerWidth < 768 ? 4 : 5,
-                    scrollCollapse: window.innerWidth < 768,
-                    scrollY: window.innerWidth < 768 ? '34vh' : 'inherit',
-                    scrollX: false,
+                    pageLength: window.innerWidth < 768 ? 2 : 5,
                     lengthChange: false,
                     responsive: true,
                     language: {
@@ -188,7 +185,7 @@
                         }
                     },
                     columns: [{
-                            width: window.innerWidth < 768 ? '70%' : '30%',
+                            width: '30%',
                             data: 'name',
                             name: 'nome',
                             className: 'col-overflow'
@@ -230,7 +227,9 @@
                 adjustTableProperties()
                 window.location.reload();
             });
-
+            if (window.innerWidth < 420) {
+                $.fn.DataTable.ext.pager.numbers_length = 4;
+            }
         });
     </script>
     @if(Session::has('message'))

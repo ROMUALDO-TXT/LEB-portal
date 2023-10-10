@@ -13,7 +13,7 @@
 }
 
 .dataTables_wrapper {
-    max-width: 100%;
+    width: 100%;
     max-height: 100%;
     overflow: hidden;
 }
@@ -117,9 +117,7 @@ div.dataTables_wrapper div.dataTables_info {
         display: none;
     }
     .dataTables_wrapper{
-        height: 80%;
         width: 100%;
-        max-height: 80% !important;
     }
     .dataTables_wrapper table{
         max-height: 100% !important;
@@ -142,7 +140,6 @@ div.dataTables_wrapper div.dataTables_info {
         font-weight: 600;
     }
     .dataTables_wrapper{
-        height: 80%;
         width: 100%;
     }
     .filesTable{

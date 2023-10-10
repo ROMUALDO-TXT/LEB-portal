@@ -42,6 +42,7 @@ Route::group(['middleware' => 'isAdmin'], function () {
 
     Route::post('/users/save',  [\App\Http\Controllers\UserController::class, 'save'])->name('users.save');
     Route::delete('/users/remove/{id}',  [\App\Http\Controllers\UserController::class, 'remove'])->name('users.remove');
+    Route::get('/dashboard/download', [\App\Http\Controllers\FileController::class, 'downloadFile'])->name('dashboard.download');
     //Files
 
     Route::post('/files/save',  [\App\Http\Controllers\FileController::class, 'save'])->name('files.save');
@@ -52,5 +53,4 @@ Route::group(['middleware' => 'isAdmin'], function () {
     //Folder
     Route::post('/folders/save',  [\App\Http\Controllers\FolderController::class, 'save'])->name('folders.save');
     Route::delete('/folders/remove/{id} ',  [\App\Http\Controllers\FolderController::class, 'remove'])->name('folders.remove');
-    Route::get('/dashboard/download', [\App\Http\Controllers\FileController::class, 'downloadFile'])->name('download');
 });

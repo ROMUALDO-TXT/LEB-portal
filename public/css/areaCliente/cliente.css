@@ -53,6 +53,7 @@
     border: 1px solid black;
     display: flex;
     width: 100%;
+    margin-right: 2%;
     overflow: hidden;
 }
 
@@ -128,7 +129,7 @@
     max-width: 95%;
 }
 
-.folder h5 a{
+.folder h5 a {
     overflow-x: auto;
 }
 
@@ -151,17 +152,24 @@
 }
 
 
-@media (min-width: 320px) {
-    .folders-url{
-        margin-right: 2%!important;
+@media (max-width: 767px) {
+    .folders-projects {
+        height: auto;
+        overflow: visible;
     }
-}
-@media (max-width: 480px) {
-    .pastas-select{
+    .folders-projects-container{
+        max-height: none;
+    }
+
+    .pastas-list {
+        width: auto !important;
+    }
+
+    .pastas-select {
         background-color: rgba(255, 255, 255, 0.6) !important;
         border-radius: 5px !important;
         border: 1px solid black !important;
-        color: var(--bs-heading-color)!important;
+        color: var(--bs-heading-color) !important;
         font-weight: 600 !important;
         display: flex !important;
         align-items: center;
@@ -169,40 +177,34 @@
         font-size: 1.25em !important;
     }
 
-    .folders-url{
+    .folders-url {
         padding: 6px 12px !important;
-        color: var(--bs-heading-color)!important;
+        color: var(--bs-heading-color) !important;
         font-weight: 600 !important;
         font-size: 1.25em !important;
         margin-bottom: 0;
-        width: 65%;
-        margin-right: 10% !important;
     }
-    .area-cliente{
-        width: 99%;
-        max-height: 100%;
+
+    .area-cliente {
+        max-width: 98%;
+        height: 100%;
         margin: auto;
         display: flex;
         flex-direction: column;
     }
-    .div1{
+
+    .div1 {
         display: none;
     }
-    .footer-text{
+
+    .footer-text {
         line-height: 1.8em !important;
     }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-    .area-cliente{
-        width: 90%;
-        margin: auto;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 992px) {
-    .folders-projects{
-        height: 90%;
+@media (min-width: 768px) and (max-width: 992px) {
+    .area-cliente {
+        max-width: 95% !important;
     }
 }
 
@@ -211,44 +213,3 @@
 @media (min-width: 1025px) and (max-width: 1200px) {}
 
 @media (min-width: 1201px) {}
-
-
-.document-modal-body{
-    background-color: #888!important;
-    display: grid !important;
-    grid-template-columns: 30fr 1fr 8fr !important;
-    max-height: 90vh; 
-    overflow-y: hidden;
-}
-
-.document-modal-content{
-    padding: 1%;
-}
-
-.document-modal-information{
-    padding: 5% 8% 5% 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.document-modal-information .file-info{
-    color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-    margin-top: 12%;
-    list-style: none;
-    padding-left: 0;
-    overflow-y: auto;
-}
-.document-modal-information div h5{
-    color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-}
-
-.div-modal-vertical {
-    width: 3px;
-    max-height: 100%;
-    margin: 1% 5%;
-    background-color: rgba(29, 29, 29, 0.8);
-    border-radius: 5px;
-}
-

@@ -1,6 +1,12 @@
+<link rel="stylesheet" href="{{ asset('css/areaAdmin/previewDocuments.css') }}" />
+
 <div class="modal fade" id="document-modal" tabindex="-1" aria-labelledby="modalDocsLabel" aria-hidden="true" style='overflow-y: hidden;'>
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content document-modal-body">
+            <div class="modal-header d-flex d-md-none">
+                <h5 class="modal-title" id="editFolderTitle">Visualizar arquivo </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
             <div class="document-modal-content" id="documentModalContent" style="max-height: 80vh; overflow-y: auto;">
                 <div id="fileViewer"></div>
             </div>

@@ -152,7 +152,7 @@ class FileController extends Controller
                         description: `' . htmlspecialchars($row->description, ENT_QUOTES, 'UTF-8') . '`,
                         updatedAt: `' . $row->updated_at . '`,
                         file: `' . $row->path . '`,
-                        path: `' . asset('storage/uploads/' . $row->path) . '`
+                        path: `' . Storage::url("public/uploads/" . $row->path) . '`
                     })" title="Visualizar documento" class="actions btn btn-success btn-sm">
                         <span class="fa fa-eye preview-eye"></span>
                     </button> 
@@ -169,7 +169,7 @@ class FileController extends Controller
                     <button onclick="removeFile(' . $row->id . ')" title="Deletar documento" class="actions btn btn-danger btn-sm">
                         <span class="fa fa-times "></span>
                     </button>                     
-                    <a class="actions btn btn-primary btn-sm " onclick="(e)=>{e.preventDefault(); e.stopPropagation()}" href="' . route('download', ['id' => $row->id]) . ' title="Download do documento">
+                    <a class="actions btn btn-primary btn-sm " onclick="(e)=>{e.preventDefault(); e.stopPropagation()}" href="' . route('dashboard.download', ['id' => $row->id]) . '" title="Download do documento">
                     <span style="color: white" class="fa fa-arrow-down"></span>
                     </a>';
 
