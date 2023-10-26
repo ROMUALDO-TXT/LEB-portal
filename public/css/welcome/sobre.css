@@ -24,6 +24,7 @@
 }
 
 .missao-text {
+    line-height: 1.5;
     font-size: 1.1em;
     font-weight: 100;
     text-align: justify;
@@ -60,6 +61,7 @@
 }
 
 .leb-text {
+    line-height: 1.5;
     font-size: 1.1em;
     font-weight: 100;
     text-align: justify;

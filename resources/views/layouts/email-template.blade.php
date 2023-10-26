@@ -4,7 +4,7 @@
         background-color: white;
         box-shadow: 0 4px 8px 0 rgba(0,
                 0, 0, 0.2);
-        max-width: 60%;
+        max-width: 90%;
         margin: 0 auto;
     }
 
@@ -21,7 +21,7 @@
         background-color: #f5f2f2;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         width:
-            90%;
+            70%;
         margin: auto;
         padding: 15px;
     }
@@ -49,6 +49,11 @@
         color: black;
     }
 
+    img{
+        width: 200px;
+        height: auto;
+    }
+
     .footer-text {
         color: rgba(255,
                 255, 255, 1);
@@ -62,7 +67,8 @@
 <div class='card'>
     <div class='container'>
         <div class='title'>
-            <img src='cid:logo' />
+            <h2>LEB</h2>
+            <!-- <img src="{{asset('images/logo-LEB.jpg')}}" /> -->
         </div>
         <br />
         <p class='subtitle'>

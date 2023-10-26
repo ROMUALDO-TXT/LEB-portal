@@ -25,7 +25,7 @@ class ContactController extends Controller
             'email' => $request['email'],
             'subject' => $request['subject'],
             'msg' => $request['message'],
-            'from' => "Contato LEB - " . $request['name'],
+            'from' => "Contato LEB - Mensagem de " . $request['name'],
         ];
 
         Mail::send('layouts/email-template', $dataForm, function ($message) use ($dataForm) {

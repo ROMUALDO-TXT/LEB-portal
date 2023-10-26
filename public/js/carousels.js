@@ -2,99 +2,112 @@ var servicos = [
     {
         titulo: 'Ensaio de Eficiência e desempenho em bombas centrifugas',
         descricao: 'Somos um laboratório especializado em ensaios de eficiência energética e desempenho em bombas hidráulicas...',
-        detalhes: {
-            textos: [
-                'Somos um laboratório especializado em ensaios de eficiência energética e desempenho em bombas hidráulicas centrífugas. Somos acreditados desde 2015 pela CGCRE com o número CRL0883, em conformidade com a norma ABNT NBR ISO/IEC 17025. Nosso escopo abrange ensaios de eficiência energética em bombas centrífugas, atendendo os requisitos estabelecidos na Portaria do INMETRO Nº 319, de 23 de julho de 2021.',
-                'Além dessa especialização, nosso laboratório também está equipado para realizar ensaios de desempenho em bombas hidráulicas submersas e submersíveis, com capacidade de até 50 CV.',
-            ],
-            imagens: [
-                'images/Projetos/projeto1-img1.jpg',
-                'images/Projetos/projeto1-img2.jpg',
-                'images/Projetos/projeto1-img3.jpg',
-            ],
-            links: [
-                'Link do escopo acreditado: http://www.inmetro.gov.br/laboratorios/rble/docs/CRL0883.pdf',
-                'Link Portaria 319/2021: http://www.inmetro.gov.br/LEGISLACAO/resultado_pesquisa.asp?seq_classe=1&ind_publico=&sel_tipo_ato_legal=--&nom_orgao=&sel_tipo_instrumento_medida=&sel_orgao_regulamentador=&descr_marca=&descr_modelo=&sel_categoria=--&num_ato=319&ano_assinatura=2021&palavra_chave=&btnPesquisar=Pesquisar'
-            ]
-        }
+        detalhes: [
+            {
+                capa: 'images/LEB.png'
+            },
+            {
+                texto: 'Somos um laboratório especializado em ensaios de eficiência energética e desempenho em bombas hidráulicas centrífugas. Somos acreditados desde 2015 pela CGCRE com o número CRL0883, em conformidade com a norma ABNT NBR ISO/IEC 17025. Nosso escopo abrange ensaios de eficiência energética em bombas centrífugas, atendendo os requisitos estabelecidos na Portaria do INMETRO Nº 319, de 23 de julho de 2021.',
+            },
+            {
+                width: '180',
+                imagem: 'images/projetos/projeto1-img1.jpeg'
+            },
+            {
+                texto: '<ul>'
+                    + '<li>Acesse o nosso escopo acreditado: <a href="http://www.inmetro.gov.br/laboratorios/rble/docs/CRL0883.pdf">http://www.inmetro.gov.br/laboratorios/rble/docs/CRL0883.pdf</a></li>'
+                    + '<li>Acesse a Portaria n° 319 de 23 de julho de 2021: <a href="http://www.inmetro.gov.br/legislacao/rtac/pdf/RTAC002808.pdf">http://www.inmetro.gov.br/legislacao/rtac/pdf/RTAC002808.pdf</a></li>'
+                    + '</ul>'
+                    + 'Além dessa especialização, nosso laboratório também está equipado para realizar ensaios de desempenho em bombas hidráulicas submersas e submersíveis, com capacidade de até 50 CV.'
+            },
+            {
+                imagem1: 'images/projetos/projeto1-img2.jpg',
+                imagem2: 'images/projetos/projeto1-img3.jpg'
+            },
+        ]
     },
     {
         titulo: 'Elaboração de Curvas para Catálogo de Motobombas Hidráulicas',
         descricao: 'Oferecemos um serviço especializado na elaboração de curvas de desempenho para catálogos técnicos de...',
-        detalhes: {
-            textos: [
-                'Oferecemos um serviço especializado na elaboração de curvas de desempenho para catálogos técnicos de motobombas hidráulicas. Realizamos levantamentos precisos de curvas como Vazão x Altura, Vazão x Potência e Vazão x Rendimento. Nossa expertise garante que as informações essenciais para seleção e especificação das motobombas sejam apresentadas de forma clara e confiável em seus materiais técnicos.',
-            ],
-            imagens: [],
-            links: []
-        }
-
+        detalhes: [
+            {
+                texto: 'Oferecemos um serviço especializado na elaboração de curvas de desempenho para catálogos técnicos de motobombas hidráulicas. Realizamos levantamentos precisos de curvas como Vazão x Altura, Vazão x Potência e Vazão x Rendimento. Nossa expertise garante que as informações essenciais para seleção e especificação das motobombas sejam apresentadas de forma clara e confiável em seus materiais técnicos.',
+            },
+            {
+                width: '600',
+                imagem: 'images/projetos/projeto2-img1.png',
+            },
+            {
+                width: '600',
+                imagem: 'images/projetos/projeto2-img2.png'
+            },
+            {
+                width: '600',
+                imagem: 'images/projetos/projeto2-img3.png',
+            },
+            {
+                width: '600',
+                imagem: 'images/projetos/projeto2-img4.png'
+            },
+            {
+                width: '600',
+                imagem: 'images/projetos/projeto2-img5.png',
+            },
+        ],
     },
     {
         titulo: 'Ensaio de Cavitação em Bombas Centrífugas',
         descricao: 'Oferecemos serviços de ensaio de cavitação em bombas centrífugas, com o objetivo de determinar...',
-        detalhes: {
-            textos: [
-                'Oferecemos serviços de ensaio de cavitação em bombas centrífugas, com o objetivo de determinar o NPSH (Altura de Sucção Disponível Normalizada) requerido da bomba para diversas vazões. Através desse ensaio, identificamos as condições operacionais seguras e eficientes da bomba, evitando a ocorrência de cavitação que poderia prejudicar o desempenho e a integridade do equipamento.',
-            ],
-            imagens: [],
-            links: []
-        }
+        detalhes: [
+            {
+                texto: 'Oferecemos serviços de ensaio de cavitação em bombas centrífugas, com o objetivo de determinar o NPSH (Altura de Sucção Disponível Normalizada) requerido da bomba para diversas vazões. Através desse ensaio, identificamos as condições operacionais seguras e eficientes da bomba, evitando a ocorrência de cavitação que poderia prejudicar o desempenho e a integridade do equipamento.',
+            }
+        ],
     },
     {
         titulo: 'Ensaios em Componentes Hidráulicos',
         descricao: 'Realizamos ensaios de desempenho e perda de carga em componentes hidráulicos essenciais...',
-        detalhes: {
-            textos: [
-                'Realizamos ensaios de desempenho e perda de carga em componentes hidráulicos essenciais, como filtros, válvulas entre outros.',
-            ],
-            imagens: [],
-            links: []
-        }
+        detalhes: [
+            {
+                texto: 'Realizamos ensaios de desempenho e perda de carga em componentes hidráulicos essenciais, como filtros, válvulas entre outros.',
+            }
+        ],
     },
     {
         titulo: 'Teste Hidrostático em Bombas Hidráulicas',
         descricao: 'Oferecemos um serviço especializado de teste hidrostático em bombas hidráulicas, com o objetivo de...',
-        detalhes: {
-            textos: [
-                'Oferecemos um serviço especializado de teste hidrostático em bombas hidráulicas, com o objetivo de assegurar a integridade, segurança e desempenho desses equipamentos. Nosso processo visa garantir que as bombas estejam em total conformidade com os padrões regulatórios estabelecidos.',
-            ],
-            imagens: [],
-            links: []
-        }
+        detalhes: [
+            {
+                texto: 'Oferecemos um serviço especializado de teste hidrostático em bombas hidráulicas, com o objetivo de assegurar a integridade, segurança e desempenho desses equipamentos. Nosso processo visa garantir que as bombas estejam em total conformidade com os padrões regulatórios estabelecidos.',
+            }
+        ],
     },
     {
         titulo: 'Consultoria em desenvolvimento de projetos de motobombas centrifugas',
         descricao: 'Oferecemos serviços de consultoria especializada voltados para o desenvolvimento de projetos de motobombas...',
-        detalhes: {
-            textos: [
-                'Oferecemos serviços de consultoria especializada voltados para o desenvolvimento de projetos de motobombas centrífugas. Através da aplicação de técnicas avançadas de Dinâmica dos Fluidos Computacional (CFD), desenvolvemos projetos eficientes e otimizados, garantindo desempenho superior e confiabilidade das motobombas centrífugas.',
-            ],
-            imagens: [],
-            links: []
-        }
+        detalhes: [
+            {
+                texto: 'Oferecemos serviços de consultoria especializada voltados para o desenvolvimento de projetos de motobombas centrífugas. Através da aplicação de técnicas avançadas de Dinâmica dos Fluidos Computacional (CFD), desenvolvemos projetos eficientes e otimizados, garantindo desempenho superior e confiabilidade das motobombas centrífugas.',
+            }
+        ],
     },
     {
         titulo: 'Calibração de medidores de vazão',
         descricao: 'Estamos trabalhando para oferecer em breve o serviço de calibração de medidores de vazão...',
-        detalhes: {
-            textos: [
-                'Estamos trabalhando para oferecer em breve o serviço de calibração de medidores de vazão. Fique atento para mais informações e detalhes.',
-            ],
-            imagens: [],
-            links: []
-        }
+        detalhes: [
+            {
+                texto: 'Estamos trabalhando para oferecer em breve o serviço de calibração de medidores de vazão. Fique atento para mais informações e detalhes.',
+            }
+        ],
     },
     {
         titulo: 'Ensaio de Eficiência Energética em Condicionadores de Ar e Bombas de Calor',
         descricao: 'Estamos atualmente desenvolvendo o serviço de ensaio de eficiência energética em...',
-        detalhes: {
-            textos: [
-                'Estamos atualmente desenvolvendo o serviço de ensaio de eficiência energética em condicionadores de ar e bombas de calor. Aguarde para obter mais informações.',
-            ],
-            imagens: [],
-            links: []
-        }
+        detalhes: [
+            {
+                texto: 'Estamos atualmente desenvolvendo o serviço de ensaio de eficiência energética em condicionadores de ar e bombas de calor. Aguarde para obter mais informações.',
+            }
+        ],
     }
 ];
 
@@ -148,7 +161,7 @@ function adicionarCardsServico(tamanho) {
 
             const servicoDiv = document.createElement("div");
             servicoDiv.className = "servico";
-            
+
             const servicoTitle = document.createElement("p");
             servicoTitle.className = "servico-title";
             servicoTitle.textContent = servicos[j].titulo;
@@ -203,63 +216,44 @@ function viewMore(i) {
     titulo.innerHTML = servicos[i].titulo;
     // body.appendChild(titulo);
 
-    if (servicos[i].detalhes.imagens.length > 2) {
-        const divImagens = document.createElement('div');
-        divImagens.className ='modal-imagens';
-        for (let j = 0; j < 2; j++) {
-            if (servicos[i].detalhes.imagens[j]) {
-                const image = document.getElementById(servicos[i].detalhes.imagens[j]);
-                const copy = document.createElement('img')
-                copy.src = image.src;
-                copy.className = 'd-block';
-                copy.width = '180';
-                divImagens.appendChild(copy);
-            }
-        }
-        body.appendChild(divImagens);
-        const descricao = document.createElement('p');
-        descricao.innerHTML = servicos[i].detalhes.textos[0];
-        body.appendChild(descricao);
+    servicos[i].detalhes.forEach((obj) => {
+        if (obj.imagem1 && obj.imagem2) {
+            const divImagens = document.createElement('div');
+            divImagens.className = 'modal-imagens';
+            const image1 = document.getElementById(obj.imagem1);
+            const copy1 = document.createElement('img')
+            copy1.src = image1.src;
+            copy1.className = 'd-block';
+            copy1.width = '180';
+            divImagens.appendChild(copy1);
 
-        const divImagens2 = document.createElement('div');
-        divImagens2.className ='modal-imagens';
-        for (let j = 2; j < 4; j++) {
-            if (servicos[i].detalhes.imagens[j]) {
-                const image = document.getElementById(servicos[i].detalhes.imagens[j]);
-                const copy = document.createElement('img')
-                copy.src = image.src;
-                copy.className = 'd-block';
-                copy.width = '180';
-                divImagens2.appendChild(copy);
-            }
+            const image2 = document.getElementById(obj.imagem2);
+            const copy2 = document.createElement('img')
+            copy2.src = image2.src;
+            copy2.className = 'd-block';
+            copy2.width = '180';
+            divImagens.appendChild(copy2);
+            body.appendChild(divImagens);
         }
-        body.appendChild(divImagens2);
-        const descricao2 = document.createElement('p');
-        descricao2.innerHTML = servicos[i].detalhes.textos[1];
-        body.appendChild(descricao2);
-    } else if (servicos[i].detalhes.imagens.length > 0) {
-        const divImagens = document.createElement('div');
-        divImagens.className ='modal-imagens';
-        for (let j = 0; j < 2; j++) {
-            if (servicos[i].detalhes.imagens[j]) {
-                const image = document.getElementById(servicos[i].detalhes.imagens[j]);
-                const copy = document.createElement('img')
-                copy.src = image.src;
-                copy.className = 'd-block';
-                copy.width = '180';
-                divImagens.appendChild(copy);
-            }
+        if (obj.texto) {
+            const descricao = document.createElement('p');
+            descricao.innerHTML = obj.texto;
+            body.appendChild(descricao);
         }
-        body.appendChild(divImagens);
-        const descricao = document.createElement('p');
-        descricao.innerHTML = servicos[i].detalhes.textos[0];
-        body.appendChild(descricao);
-    }else{
-        const descricao = document.createElement('p');
-        descricao.innerHTML = servicos[i].detalhes.textos[0];
-        body.appendChild(descricao);
-    }
+        if (obj.imagem) {
+            const divImagens = document.createElement('div');
+            divImagens.className = 'modal-imagens';
+            const image = document.getElementById(obj.imagem);
+            const copy = document.createElement('img')
+            copy.src = image.src;
+            copy.className = 'd-block';
+            copy.width = obj.width;
+            divImagens.appendChild(copy);
+            body.appendChild(divImagens);
+        }
 
-
+    })
     $('#modalProjects').modal('show');
 }
+
+

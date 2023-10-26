@@ -1,8 +1,14 @@
 <?php
 $imagens = [
-    'images/Projetos/projeto1-img1.jpg',
-    'images/Projetos/projeto1-img2.jpg',
-    'images/Projetos/projeto1-img3.jpg',
+    'images/projetos/projeto1-img1.jpeg',
+    'images/projetos/projeto1-img2.jpg',
+    'images/projetos/projeto1-img3.jpg',
+    'images/LEB.png',
+    'images/projetos/projeto2-img1.png',
+    'images/projetos/projeto2-img2.png',
+    'images/projetos/projeto2-img3.png',
+    'images/projetos/projeto2-img4.png',
+    'images/projetos/projeto2-img5.png',
 ]
 ?>
 
